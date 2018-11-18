@@ -1,0 +1,9 @@
+{
+  "name": "job-hustler",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "sls:deploy": "sls deploy --aws-profile jobhustler"
+  }
+}
