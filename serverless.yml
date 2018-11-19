@@ -5,10 +5,30 @@ provider:
   runtime: nodejs8.10
 
 functions:
-  hello:
-    handler: handler.hello
+  searchClearbit:
+    handler: src/handler.searchClearbit
     events:
       - http: 
-          path: /hello
+          path: /search
           method: GET
           cors: true
+
+  getUser:
+    handler: src/handler.getUser
+    events:
+      - http:
+          path: /user
+          method: GET
+          cors: true
+
+  enrollUser:
+    handler: src/handler.enrollUser
+    events:
+      - http:
+          path: /enroll
+          method: GET
+          cors: true
+
+  
+
+
