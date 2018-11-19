@@ -5,5 +5,9 @@
   "license": "MIT",
   "scripts": {
     "sls:deploy": "sls deploy --aws-profile jobhustler"
+  },
+  "dependencies": {
+    "request": "^2.88.0",
+    "request-promise": "^4.2.2"
   }
 }
