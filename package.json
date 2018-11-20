@@ -4,10 +4,14 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "sls:deploy": "sls deploy --aws-profile jobhustler"
+    "sls:deploy": "sls deploy --aws-profile jobhustler",
+    "dev:start": "sls offline start"
   },
   "dependencies": {
     "request": "^2.88.0",
     "request-promise": "^4.2.2"
+  },
+  "devDependencies": {
+    "serverless-offline": "^3.31.3"
   }
 }
