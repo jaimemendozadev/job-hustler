@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "sls:deploy": "sls deploy --aws-profile jobhustler",
-    "dev:start": "sls offline start"
+    "dev:start": "sls offline start",
+    "sls:remove": "sls remove --aws-profile jobhustler"
   },
   "dependencies": {
     "request": "^2.88.0",
