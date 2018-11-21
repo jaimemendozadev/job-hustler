@@ -9,28 +9,31 @@ plugins:
 
 functions:
   searchClearbit:
-    handler: src/handler.searchClearbit
+    handler: api/handler.searchClearbit
     events:
       - http: 
           path: /search
           method: GET
           cors: true
+          authorizer: aws_iam
 
   getUser:
-    handler: src/handler.getUser
+    handler: api/handler.getUser
     events:
       - http:
           path: /user
           method: GET
           cors: true
+          authorizer: aws_iam
 
   enrollUser:
-    handler: src/handler.enrollUser
+    handler: api/handler.enrollUser
     events:
       - http:
           path: /enroll
           method: GET
           cors: true
+          authorizer: aws_iam
 
   
 
