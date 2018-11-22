@@ -1,2 +1,8 @@
 node_modules
 coverage
+.serverless
+.vscode
+.eslintrc.json
+package-lock.json
+package.json
+serverless.yml

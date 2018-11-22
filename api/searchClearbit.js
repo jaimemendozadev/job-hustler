@@ -1,33 +1,31 @@
-"use strict";
-
 module.exports = (event, context, callback) => {
   try {
-    console.log("Successfully fired Lambda!");
+    console.log("Successfully fired Lambda!")
     const body = JSON.stringify({
       error: false,
-      msg: "Successfully fired Lambda!"
-    });
+      msg: "Successfully fired Lambda!",
+    })
 
     const message = {
       statusCode: 200,
       headers: {},
-      body
-    };
+      body,
+    }
 
-    callback(null, message);
+    callback(null, message)
   } catch (error) {
     const body = JSON.stringify({
       error: true,
-      msg: "There was an error processing your request"
-    });
+      msg: "There was an error processing your request",
+    })
 
     const message = {
       statusCode: 200,
       headers: {},
-      body
-    };
+      body,
+    }
 
-    console.log("Error firing Lambda ", error);
-    callback(error, message);
+    console.log("Error firing Lambda ", error)
+    callback(error, message)
   }
-};
+}

@@ -1,22 +1,22 @@
-const path = require("path");
-const webpack = require("webpack");
-const publicFolder = path.resolve(__dirname, "public");
-const entry = path.resolve(__dirname, "dev/index.js");
+const path = require("path")
+const webpack = require("webpack")
+const publicFolder = path.resolve(__dirname, "public")
+const entry = path.resolve(__dirname, "dev/index.js")
 
 module.exports = {
   entry,
   mode: "development",
   output: {
     path: publicFolder,
-    filename: "bundle.js"
+    filename: "bundle.js",
   },
   devServer: {
-    contentBase: "public"
+    contentBase: "public",
   },
   module: {
     rules: [
-      { test: /\.(js|jsx)$/, exclude: /node_modules/, use: "babel-loader" }
-    ]
+      { test: /\.(js|jsx)$/, exclude: /node_modules/, use: "babel-loader" },
+    ],
   },
-  plugins: [new webpack.HotModuleReplacementPlugin()]
-};
+  plugins: [new webpack.HotModuleReplacementPlugin()],
+}
