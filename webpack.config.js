@@ -1,5 +1,6 @@
 const path = require("path")
 const webpack = require("webpack")
+
 const publicFolder = path.resolve(__dirname, "public")
 const entry = path.resolve(__dirname, "dev/index.js")
 
@@ -12,6 +13,7 @@ module.exports = {
   },
   devServer: {
     contentBase: "public",
+    historyApiFallback: true, // Handles Client Side Routing
   },
   module: {
     rules: [
