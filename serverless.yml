@@ -11,7 +11,7 @@ functions:
   searchClearbit:
     handler: api/handler.searchClearbit
     events:
-      - http: 
+      - http:
           path: /search
           method: GET
           cors: true
@@ -34,7 +34,3 @@ functions:
           method: GET
           cors: true
           authorizer: aws_iam
-
-  
-
-

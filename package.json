@@ -7,7 +7,8 @@
     "sls:deploy": "sls deploy --aws-profile jobhustler",
     "dev:start": "sls offline start",
     "sls:remove": "sls remove --aws-profile jobhustler",
-    "fe:devstart": "webpack-dev-server --config ./webpack.config.js --mode development"
+    "fe:devstart": "webpack-dev-server --config ./webpack.config.js --mode development",
+    "format": "prettier --write \"**/*.+(js|jsx|json|yml|yaml|css|scss|md)\""
   },
   "dependencies": {
     "@babel/runtime": "^7.1.5",
@@ -23,6 +24,8 @@
     "@babel/preset-env": "^7.1.6",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.4",
+    "eslint": "^5.9.0",
+    "prettier": "^1.15.2",
     "react-hot-loader": "^4.3.12",
     "serverless-offline": "^3.31.3",
     "webpack": "^4.26.0",
