@@ -1,7 +1,18 @@
-import React from "react"
+import React, { Component } from "react"
 import ReactDOM from "react-dom"
 
-const App = () => <h1>Hello World!</h1>
+class App extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      message: "Hello World!",
+    }
+  }
+  render() {
+    const { message } = this.state
+    return <h1>{message}</h1>
+  }
+}
 
 ReactDOM.render(<App />, document.querySelector(".container"))
 
