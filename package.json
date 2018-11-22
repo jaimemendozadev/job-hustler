@@ -8,7 +8,8 @@
     "dev:start": "sls offline start",
     "sls:remove": "sls remove --aws-profile jobhustler",
     "fe:devstart": "webpack-dev-server --config ./webpack.config.js --mode development",
-    "lint": "eslint --fix ./dev && eslint --fix ./api",
+    "lint:fe": "eslint --fix ./dev",
+    "lint:be": "eslint --fix ./api",
     "prettier": "prettier \"**/*.+(js|jsx|json|yml|yaml|css|scss|md)\"",
     "format": "yarn run prettier --write",
     "validate": "yarn run lint && yarn run prettier --list-different"
