@@ -23,7 +23,7 @@ test("Labels/Inputs render", () => {
 })
 
 test("Can enter Username in Input", () => {
-  const { getByLabelText, debug } = render(<Signup />)
+  const { getByLabelText } = render(<Signup />)
 
   const usernameInput = getByLabelText(/username/i)
 
@@ -31,7 +31,17 @@ test("Can enter Username in Input", () => {
 
   fireEvent.change(usernameInput, { target: { value: testUser } })
 
-  debug(usernameInput)
-
   expect(usernameInput.value).toBe(testUser)
+})
+
+test("Can enter Password in Input", () => {
+  const { getByLabelText } = render(<Signup />)
+
+  const passInput = getByLabelText(/password/i)
+
+  const fakePass = "12345"
+
+  fireEvent.change(passInput, { target: { value: fakePass } })
+
+  expect(passInput.value).not.toBe(fakePass)
 })
