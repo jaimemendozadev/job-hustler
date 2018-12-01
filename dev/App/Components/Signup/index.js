@@ -1,5 +1,40 @@
-import React from "react"
+import React, { Component } from "react"
 
-const Signup = () => <h1>Signup</h1>
+class Signup extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      username: "Username",
+      password: "Password",
+    }
+  }
+
+  handleUsername = evt => {
+    this.setState({ username: evt.target.value })
+  }
+
+  render() {
+    const { username, password } = this.state
+    return (
+      <form>
+        <h1>Signup</h1>
+        <label htmlFor="username">
+          Username
+          <input
+            onChange={this.handleUsername}
+            type="text"
+            id="username"
+            value={username}
+          />
+        </label>
+
+        <label htmlFor="password">
+          Password
+          <input type="text" id="password" value={password} />
+        </label>
+      </form>
+    )
+  }
+}
 
 export default Signup
