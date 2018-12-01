@@ -10,6 +10,7 @@ class Signup extends Component {
   }
 
   handleUsername = evt => {
+    console.log("firing handleUsername")
     this.setState({ username: evt.target.value })
   }
 
@@ -30,7 +31,12 @@ class Signup extends Component {
 
         <label htmlFor="password">
           Password
-          <input type="text" id="password" value={password} />
+          <input
+            onChange={this.handleUsername}
+            type="text"
+            id="password"
+            value={password}
+          />
         </label>
       </form>
     )
