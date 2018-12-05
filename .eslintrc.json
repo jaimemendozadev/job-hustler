@@ -8,6 +8,7 @@
     "rules": {
       "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
       "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
-      "import/no-unresolved": [1]
+      "import/no-unresolved": [1],
+      "prefer-destructuring": [1]
     }
 }
