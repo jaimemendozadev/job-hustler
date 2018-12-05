@@ -1,5 +1,6 @@
 const path = require("path")
 const webpack = require("webpack")
+const Dotenv = require("dotenv-webpack")
 
 const publicFolder = path.resolve(__dirname, "public")
 const entry = path.resolve(__dirname, "dev/index.js")
@@ -20,5 +21,5 @@ module.exports = {
       { test: /\.(js|jsx)$/, exclude: /node_modules/, use: "babel-loader" },
     ],
   },
-  plugins: [new webpack.HotModuleReplacementPlugin()],
+  plugins: [new Dotenv(), new webpack.HotModuleReplacementPlugin()],
 }
