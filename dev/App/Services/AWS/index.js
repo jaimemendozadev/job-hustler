@@ -1,4 +1,4 @@
-import Amplify from "aws-amplify"
+import Amplify, { Auth } from "aws-amplify"
 
 const AWS_USER_POOL_ID = process.env.AWS_USER_POOL_ID
 const AWS_FED_POOL_ID = process.env.AWS_FED_POOL_ID
@@ -22,5 +22,55 @@ const config = Amplify.configure({
     mandatorySignIn: true,
   },
 })
+
+const signUpAWS = async (email, password, firstName, lastName) => {
+  try {
+    const signUpResult = await Auth.signUp({
+      username: email,
+      password,
+      attributes: {
+        email,
+        given_name: firstName,
+        family_name: lastName,
+      },
+    })
+
+    console.log("signUpResult from AWS is ", signUpResult)
+
+    return signUpResult
+  } catch (error) {
+    console.log("Error signing up user to AWS ", error)
+    const errorMessage = {
+      error: true,
+      message: "There was an error registering you. Please try again.",
+    }
+    return errorMessage
+  }
+}
+
+const signInAWS = async (username, code) => {
+  try {
+    // After retrieveing the confirmation code from the user
+    const signInResult = await Auth.confirmSignUp(username, code, {
+      // Optional. Force user confirmation irrespective of existing alias. By default set to True.
+      forceAliasCreation: true,
+    })
+
+    console.log("signInResult from AWS is ", signInResult)
+
+    return signInResult
+  } catch (error) {
+    console.log("Error signing in user to AWS ", error)
+
+    const errorMessage = {
+      error: true,
+      message:
+        "There was an error signing you into the application. Please try again.",
+    }
+    return errorMessage
+  }
+}
+
+export { signUpAWS, signInAWS }
 
 export default config

@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+// import { signUpAWS } from "../../Services/AWS"
 
 class Signup extends Component {
   constructor(props) {
