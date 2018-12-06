@@ -43,5 +43,28 @@ test("Can enter Password in Input", () => {
 
   fireEvent.change(passInput, { target: { value: fakePass } })
 
-  expect(passInput.value).not.toBe(fakePass)
+  expect(passInput.value).toBe(fakePass)
+})
+
+test("Can enter First Name in Input", () => {
+  const { getByLabelText } = render(<Signup />)
+
+  const firstNameInput = getByLabelText(/First Name/i)
+
+  expect(firstNameInput).toHaveAttribute("type", "text")
+
+  fireEvent.click(firstNameInput, { target: { value: "Joseph" } })
+
+  expect(firstNameInput.value).toBe("Joseph")
+})
+
+test("Can enter Last Name in Input", () => {
+  const { getByLabelText } = render(<Signup />)
+  const lastNameInput = getByLabelText(/last name/i)
+
+  expect(lastNameInput).toHaveAttribute("type", "text")
+
+  fireEvent.click(lastNameInput, { target: { value: "Smith" } })
+
+  expect(lastNameInput.value).toBe("Smith")
 })

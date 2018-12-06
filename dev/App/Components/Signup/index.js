@@ -7,6 +7,8 @@ class Signup extends Component {
     this.state = {
       username: "Username",
       password: "Password",
+      firstName: "First Name",
+      lastName: "Last Name",
     }
   }
 
@@ -15,7 +17,7 @@ class Signup extends Component {
   }
 
   render() {
-    const { username, password } = this.state
+    const { username, password, firstName, lastName } = this.state
     return (
       <form>
         <h1>Signup</h1>
@@ -36,6 +38,26 @@ class Signup extends Component {
             type="text"
             id="password"
             value={password}
+          />
+        </label>
+
+        <label htmlFor="first name">
+          First Name
+          <input
+            onChange={evt => this.handleInput(evt, "firstName")}
+            type="text"
+            id="first name"
+            value={firstName}
+          />
+        </label>
+
+        <label htmlFor="last name">
+          Last Name
+          <input
+            onChange={evt => this.handleInput(evt, "lastName")}
+            type="text"
+            id="last name"
+            value={lastName}
           />
         </label>
       </form>
