@@ -16,9 +16,7 @@ class Signup extends Component {
   }
 
   handleOnBlur = labelType => {
-    const { state } = this.state
-    const stateValue = state[labelType]
-
+    const stateValue = this.state[labelType]
     const defaultValue = defaultState[labelType]
 
     if (stateValue.length === 0) {
@@ -29,8 +27,7 @@ class Signup extends Component {
   }
 
   handleOnFocus = labelType => {
-    const { state } = this.state
-    const stateValue = state[labelType]
+    const stateValue = this.state[labelType]
 
     const defaultValue = defaultState[labelType]
 
@@ -47,6 +44,9 @@ class Signup extends Component {
 
   handleSignUp = async evt => {
     evt.preventDefault()
+
+    console.log("this.state inside handleSignUp is ", this.state)
+
     const { email, password, firstName, lastName } = this.state
     const AWSCode = await signUpAWS(email, password, firstName, lastName)
 

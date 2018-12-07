@@ -51,10 +51,7 @@ const signUpAWS = async (email, password, firstName, lastName) => {
 const confirmAWSSignUp = async (username, code) => {
   try {
     // After retrieveing the confirmation code from the user
-    const signInResult = await Auth.confirmSignUp(username, code, {
-      // Optional. Force user confirmation irrespective of existing alias. By default set to True.
-      forceAliasCreation: true,
-    })
+    const signInResult = await Auth.confirmSignUp(username, code)
 
     console.log("signInResult from AWS is ", signInResult)
 
