@@ -15,7 +15,7 @@ test("Labels/Inputs render", () => {
   const { getByLabelText } = render(<Signup />)
   const usernameInput = getByLabelText(/username/i)
 
-  expect(usernameInput).toHaveAttribute("type", "text")
+  expect(usernameInput).toHaveAttribute("type", "password")
 
   const passInput = getByLabelText(/password/i)
 
