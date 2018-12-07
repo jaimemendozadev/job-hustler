@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from "react"
 import { signUpAWS } from "../../Services/AWS"
 import Input from "../Input"
@@ -10,13 +11,18 @@ const defaultState = {
   lastName: "Last Name",
 }
 
-class Signup extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      ...defaultState,
-      errorMessage: "",
-    }
+type State = {
+  email: string,
+  password: string,
+  firstName: string,
+  lastName: string,
+  errorMessage: string,
+}
+
+class Signup extends Component<{}, State> {
+  state = {
+    ...defaultState,
+    errorMessage: "",
   }
 
   handleOnBlur = labelType => {
@@ -64,7 +70,6 @@ class Signup extends Component {
     return (
       <form onSubmit={this.handleSignUp}>
         <h1>Signup</h1>
-
         <Input
           label="Email"
           onBlur={() => this.handleOnBlur("email")}
@@ -74,18 +79,6 @@ class Signup extends Component {
           id="email"
           value={email}
         />
-
-        {/* <label htmlFor="password">
-          Password
-          <input
-            onBlur={() => this.handleOnBlur("password")}
-            onFocus={() => this.handleOnFocus("password")}
-            onChange={evt => this.handleInput(evt, "password")}
-            type={checkPassInput(password)}
-            id="password"
-            value={password}
-          />
-        </label> */}
 
         <Input
           label="Password"
@@ -97,29 +90,24 @@ class Signup extends Component {
           value={password}
         />
 
-        <label htmlFor="first name">
-          First Name
-          <input
-            onBlur={() => this.handleOnBlur("firstName")}
-            onFocus={() => this.handleOnFocus("firstName")}
-            onChange={evt => this.handleInput(evt, "firstName")}
-            type="text"
-            id="first name"
-            value={firstName}
-          />
-        </label>
+        <Input
+          onBlur={() => this.handleOnBlur("firstName")}
+          onFocus={() => this.handleOnFocus("firstName")}
+          onChange={evt => this.handleInput(evt, "firstName")}
+          type="text"
+          id="first name"
+          value={firstName}
+        />
 
-        <label htmlFor="last name">
-          Last Name
-          <input
-            onBlur={() => this.handleOnBlur("lastName")}
-            onFocus={() => this.handleOnFocus("lastName")}
-            onChange={evt => this.handleInput(evt, "lastName")}
-            type="text"
-            id="last name"
-            value={lastName}
-          />
-        </label>
+        <Input
+          onBlur={() => this.handleOnBlur("lastName")}
+          onFocus={() => this.handleOnFocus("lastName")}
+          onChange={evt => this.handleInput(evt, "lastName")}
+          type="text"
+          id="last name"
+          value={lastName}
+        />
+
         <button type="submit">Sign Up</button>
         {errorMessage ? `${errorMessage}` : null}
       </form>
