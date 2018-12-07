@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { signUpAWS } from "../../Services/AWS"
-import checkPassInput from "./utils"
+import { checkPassInput, checkStateObject } from "./utils"
 
 const defaultState = {
   email: "Email",
@@ -12,7 +12,10 @@ const defaultState = {
 class Signup extends Component {
   constructor(props) {
     super(props)
-    this.state = defaultState
+    this.state = {
+      ...defaultState,
+      errorMessage: "",
+    }
   }
 
   handleOnBlur = labelType => {
@@ -44,17 +47,19 @@ class Signup extends Component {
 
   handleSignUp = async evt => {
     evt.preventDefault()
+    const stateCheck = checkStateObject(this.state, defaultState)
 
-    console.log("this.state inside handleSignUp is ", this.state)
-
-    const { email, password, firstName, lastName } = this.state
-    const AWSCode = await signUpAWS(email, password, firstName, lastName)
-
-    console.log("AWSCode is ", AWSCode)
+    if (stateCheck.error === true) {
+      this.setState({ errorMessage: stateCheck.message })
+    } else {
+      const { email, password, firstName, lastName } = this.state
+      const AWSCode = await signUpAWS(email, password, firstName, lastName)
+      console.log("AWSCode is ", AWSCode)
+    }
   }
 
   render() {
-    const { email, password, firstName, lastName } = this.state
+    const { email, password, firstName, lastName, errorMessage } = this.state
     return (
       <form onSubmit={this.handleSignUp}>
         <h1>Signup</h1>
@@ -106,6 +111,7 @@ class Signup extends Component {
           />
         </label>
         <button type="submit">Sign Up</button>
+        {errorMessage ? `${errorMessage}` : null}
       </form>
     )
   }

@@ -13,7 +13,7 @@
     "lint:be": "eslint --fix ./api",
     "prettier": "prettier \"**/*.+(js|jsx|json|yml|yaml|css|scss|md)\"",
     "format": "yarn run prettier --write",
-    "validate": "yarn run lint && yarn run test && yarn run prettier --list-different"
+    "validate": "yarn run lint:fe && yarn run test && yarn run prettier --list-different"
   },
   "husky": {
     "hooks": {
