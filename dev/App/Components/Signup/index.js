@@ -75,7 +75,7 @@ class Signup extends Component {
           value={email}
         />
 
-        <label htmlFor="password">
+        {/* <label htmlFor="password">
           Password
           <input
             onBlur={() => this.handleOnBlur("password")}
@@ -85,7 +85,17 @@ class Signup extends Component {
             id="password"
             value={password}
           />
-        </label>
+        </label> */}
+
+        <Input
+          label="Password"
+          onBlur={() => this.handleOnBlur("password")}
+          onFocus={() => this.handleOnFocus("password")}
+          onChange={evt => this.handleInput(evt, "password")}
+          type={checkPassInput(password)}
+          id="password"
+          value={password}
+        />
 
         <label htmlFor="first name">
           First Name
