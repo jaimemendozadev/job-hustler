@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import { signUpAWS } from "../../Services/AWS"
+import Input from "../Input"
 import { checkPassInput, checkStateObject } from "./utils"
 
 const defaultState = {
@@ -63,17 +64,16 @@ class Signup extends Component {
     return (
       <form onSubmit={this.handleSignUp}>
         <h1>Signup</h1>
-        <label htmlFor="email">
-          Email
-          <input
-            onBlur={() => this.handleOnBlur("email")}
-            onFocus={() => this.handleOnFocus("email")}
-            onChange={evt => this.handleInput(evt, "email")}
-            type="text"
-            id="email"
-            value={email}
-          />
-        </label>
+
+        <Input
+          label="Email"
+          onBlur={() => this.handleOnBlur("email")}
+          onFocus={() => this.handleOnFocus("email")}
+          onChange={evt => this.handleInput(evt, "email")}
+          type="text"
+          id="email"
+          value={email}
+        />
 
         <label htmlFor="password">
           Password
