@@ -13,25 +13,31 @@ test("Container renders", () => {
 
 test("Labels/Inputs render", () => {
   const { getByLabelText } = render(<Signup />)
-  const usernameInput = getByLabelText(/username/i)
+  const emailInput = getByLabelText(/email/i)
 
-  expect(usernameInput).toHaveAttribute("type", "password")
+  expect(emailInput).toHaveAttribute("type", "text")
 
   const passInput = getByLabelText(/password/i)
 
   expect(passInput).toHaveAttribute("type", "text")
+
+  const fakePass = "12345"
+
+  fireEvent.change(passInput, { target: { value: fakePass } })
+
+  expect(passInput).toHaveAttribute("type", "password")
 })
 
 test("Can enter Username in Input", () => {
   const { getByLabelText } = render(<Signup />)
 
-  const usernameInput = getByLabelText(/username/i)
+  const emailInput = getByLabelText(/email/i)
 
-  const testUser = "random_person"
+  const testUser = "random_person@gmail.com"
 
-  fireEvent.change(usernameInput, { target: { value: testUser } })
+  fireEvent.change(emailInput, { target: { value: testUser } })
 
-  expect(usernameInput.value).toBe(testUser)
+  expect(emailInput.value).toBe(testUser)
 })
 
 test("Can enter Password in Input", () => {

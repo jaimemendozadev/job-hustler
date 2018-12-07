@@ -48,7 +48,7 @@ const signUpAWS = async (email, password, firstName, lastName) => {
   }
 }
 
-const signInAWS = async (username, code) => {
+const confirmAWSSignUp = async (username, code) => {
   try {
     // After retrieveing the confirmation code from the user
     const signInResult = await Auth.confirmSignUp(username, code, {
@@ -71,6 +71,6 @@ const signInAWS = async (username, code) => {
   }
 }
 
-export { signUpAWS, signInAWS }
+export { signUpAWS, confirmAWSSignUp }
 
 export default config

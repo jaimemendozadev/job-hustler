@@ -1,9 +1,9 @@
 import React, { Component } from "react"
-// import { signUpAWS } from "../../Services/AWS"
+import { signUpAWS } from "../../Services/AWS"
 import checkPassInput from "./utils"
 
 const defaultState = {
-  username: "Username",
+  email: "Email",
   password: "Password",
   firstName: "First Name",
   lastName: "Last Name",
@@ -45,22 +45,28 @@ class Signup extends Component {
     this.setState({ [labelType]: evt.target.value })
   }
 
-  handleSignUp = () => {}
+  handleSignUp = async evt => {
+    evt.preventDefault()
+    const { email, password, firstName, lastName } = this.state
+    const AWSCode = await signUpAWS(email, password, firstName, lastName)
+
+    console.log("AWSCode is ", AWSCode)
+  }
 
   render() {
-    const { username, password, firstName, lastName } = this.state
+    const { email, password, firstName, lastName } = this.state
     return (
       <form onSubmit={this.handleSignUp}>
         <h1>Signup</h1>
-        <label htmlFor="username">
-          Username
+        <label htmlFor="email">
+          Email
           <input
-            onBlur={() => this.handleOnBlur("username")}
-            onFocus={() => this.handleOnFocus("username")}
-            onChange={evt => this.handleInput(evt, "username")}
+            onBlur={() => this.handleOnBlur("email")}
+            onFocus={() => this.handleOnFocus("email")}
+            onChange={evt => this.handleInput(evt, "email")}
             type="text"
-            id="username"
-            value={username}
+            id="email"
+            value={email}
           />
         </label>
 
