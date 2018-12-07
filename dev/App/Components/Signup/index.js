@@ -25,7 +25,7 @@ class Signup extends Component<{}, State> {
     errorMessage: "",
   }
 
-  handleOnBlur = labelType => {
+  handleOnBlur = (labelType: string) => {
     const stateValue = this.state[labelType]
     const defaultValue = defaultState[labelType]
 
@@ -36,7 +36,7 @@ class Signup extends Component<{}, State> {
     }
   }
 
-  handleOnFocus = labelType => {
+  handleOnFocus = (labelType: string) => {
     const stateValue = this.state[labelType]
 
     const defaultValue = defaultState[labelType]
@@ -48,11 +48,15 @@ class Signup extends Component<{}, State> {
     }
   }
 
-  handleInput = (evt, labelType) => {
-    this.setState({ [labelType]: evt.target.value })
+  handleInput = (evt?: SyntheticInputEvent<EventTarget>, labelType: string) => {
+    if (evt !== undefined) {
+      const { value } = evt.target
+      // console.log("evt inside handleInput ", evt)
+      this.setState({ [labelType]: value })
+    }
   }
 
-  handleSignUp = async evt => {
+  handleSignUp = async (evt: SyntheticInputEvent<EventTarget>) => {
     evt.preventDefault()
     const stateCheck = checkStateObject(this.state, defaultState)
 

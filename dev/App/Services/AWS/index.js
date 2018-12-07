@@ -1,3 +1,4 @@
+// @flow
 import Amplify, { Auth } from "aws-amplify"
 
 const AWS_USER_POOL_ID = process.env.AWS_USER_POOL_ID
@@ -23,7 +24,12 @@ const config = Amplify.configure({
   },
 })
 
-const signUpAWS = async (email, password, firstName, lastName) => {
+const signUpAWS = async (
+  email: string,
+  password: string,
+  firstName: string,
+  lastName: string,
+) => {
   try {
     const signUpResult = await Auth.signUp({
       username: email,
@@ -48,7 +54,7 @@ const signUpAWS = async (email, password, firstName, lastName) => {
   }
 }
 
-const confirmAWSSignUp = async (username, code) => {
+const confirmAWSSignUp = async (username: string, code: string) => {
   try {
     // After retrieveing the confirmation code from the user
     const signInResult = await Auth.confirmSignUp(username, code)

@@ -3,8 +3,9 @@
       "browser": true,
       "jest": true
     },
-    "extends": ["airbnb", "eslint-config-prettier"],
+    "extends": ["airbnb", "eslint-config-prettier", "plugin:flowtype/recommended"],
     "parser": "babel-eslint",
+    "plugins": ["flowtype"],
     "rules": {
       "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
       "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
