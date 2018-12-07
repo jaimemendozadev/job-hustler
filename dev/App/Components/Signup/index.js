@@ -71,6 +71,7 @@ class Signup extends Component<{}, State> {
       <form onSubmit={this.handleSignUp}>
         <h1>Signup</h1>
         <Input
+          htmlFor="email"
           label="Email"
           onBlur={() => this.handleOnBlur("email")}
           onFocus={() => this.handleOnFocus("email")}
@@ -81,6 +82,7 @@ class Signup extends Component<{}, State> {
         />
 
         <Input
+          htmlFor="password"
           label="Password"
           onBlur={() => this.handleOnBlur("password")}
           onFocus={() => this.handleOnFocus("password")}
@@ -91,6 +93,8 @@ class Signup extends Component<{}, State> {
         />
 
         <Input
+          htmlFor="first name"
+          label="First Name"
           onBlur={() => this.handleOnBlur("firstName")}
           onFocus={() => this.handleOnFocus("firstName")}
           onChange={evt => this.handleInput(evt, "firstName")}
@@ -100,6 +104,8 @@ class Signup extends Component<{}, State> {
         />
 
         <Input
+          htmlFor="last name"
+          label="Last Name"
           onBlur={() => this.handleOnBlur("lastName")}
           onFocus={() => this.handleOnFocus("lastName")}
           onChange={evt => this.handleInput(evt, "lastName")}

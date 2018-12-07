@@ -2,6 +2,7 @@
 import React from "react"
 
 type Props = {
+  htmlFor: string,
   label: string,
   onBlur: () => void,
   onFocus: () => void,
@@ -12,7 +13,7 @@ type Props = {
 }
 
 const Input = (props: Props) => (
-  <label htmlFor="last name">
+  <label htmlFor={props.htmlFor}>
     {props.label}
     <input
       onBlur={props.onBlur}
