@@ -51,7 +51,6 @@ class Signup extends Component<{}, State> {
   handleInput = (evt?: SyntheticInputEvent<EventTarget>, labelType: string) => {
     if (evt !== undefined) {
       const { value } = evt.target
-      // console.log("evt inside handleInput ", evt)
       this.setState({ [labelType]: value })
     }
   }
@@ -60,12 +59,12 @@ class Signup extends Component<{}, State> {
     evt.preventDefault()
     const stateCheck = checkStateObject(this.state, defaultState)
 
-    if (stateCheck.error === true) {
-      this.setState({ errorMessage: stateCheck.message })
-    } else {
+    if (stateCheck.error === false) {
       const { email, password, firstName, lastName } = this.state
       const AWSCode = await signUpAWS(email, password, firstName, lastName)
       console.log("AWSCode is ", AWSCode)
+    } else {
+      this.setState({ errorMessage: stateCheck.message })
     }
   }
 
