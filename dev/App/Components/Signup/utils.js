@@ -1,5 +1,5 @@
 // @flow
-/* eslint no-useless-escape: 1 */
+/* eslint no-useless-escape: 0 */
 
 type State = {
   email: string,
@@ -30,27 +30,27 @@ const validatePassword = (password: string): string => {
   const specialCharsRegex = /[\^\$\*\.\[\]\{\}\(\)\?\-\"\!\@\#\%\&\/\\\,\>\<\'\:\;\|\_\~\`]/
 
   // Check password length
-  if (!password.length >= 8) {
+  if (password.length <= 7) {
     return "Password must be at least 8 characters long."
   }
 
   // Check for legitimate characters
-  if (!password.search(/[a-zA-Z]/)) {
+  if (password.search(/[a-zA-Z]/) === -1) {
     return "You must use Roman Letters in your password."
   }
 
   // Check for uppercase letters
-  if (!password.search(/[A-Z]/)) {
+  if (password.search(/[A-Z]/) === -1) {
     return "Password must include at least one Uppercase letter."
   }
 
   // Check for special characters
-  if (!password.search(specialCharsRegex)) {
+  if (password.search(specialCharsRegex) === -1) {
     return false
   }
 
   // Check for numbers
-  if (!password.search(/[0-9]/)) {
+  if (password.search(/[0-9]/) === -1) {
     return "Password must include at least one Number."
   }
 

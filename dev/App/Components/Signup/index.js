@@ -2,6 +2,7 @@
 import React, { Component } from "react"
 import { signUpAWS } from "../../Services/AWS"
 import Input from "../Input"
+import ErrorMessage from "../ErrorMessage"
 import { checkPassInput, checkForValidInputs } from "./utils"
 
 const defaultState = {
@@ -118,7 +119,7 @@ class Signup extends Component<{}, State> {
         />
 
         <button type="submit">Sign Up</button>
-        {errorMessage ? `${errorMessage}` : null}
+        <ErrorMessage errorMessage={errorMessage} />
       </form>
     )
   }

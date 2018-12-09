@@ -75,21 +75,79 @@ test("Can enter Last Name in Input", () => {
   expect(lastNameInput.value).toBe("Smith")
 })
 
-test("On Submit, will pass/fail Input validation ", () => {
-  const { getByLabelText } = render(<Signup />)
+test("On failing Email Input validation, will render error message ", () => {
+  const { getByLabelText, getByText, getByTestId } = render(<Signup />)
 
   const email = getByLabelText(/email/i)
   const password = getByLabelText(/password/i)
   const firstName = getByLabelText(/first name/i)
   const lastName = getByLabelText(/last name/i)
 
-  const emailInput = { target: { value: "" } }
-  const passwordInput = { target: { value: "" } }
-  const firstNameInput = { target: { value: "" } }
-  const lastNameInput = { target: { value: "" } }
+  const emailInput = { target: { value: "blorg_at_gmail.com" } }
+  const passwordInput = { target: { value: "87^ghY&r" } }
+  const firstNameInput = { target: { value: "Blorg" } }
+  const lastNameInput = { target: { value: "Smith" } }
 
   fireEvent.change(email, emailInput)
   fireEvent.change(password, passwordInput)
   fireEvent.change(firstName, firstNameInput)
   fireEvent.change(lastName, lastNameInput)
+
+  const button = getByText(/sign up/i)
+  const errorMsg = getByTestId("signup-error-msg")
+
+  fireEvent.click(button)
+
+  expect(errorMsg).toHaveTextContent("Enter a valid email address.")
 })
+
+test("On failing Password Input validation, will render error message ", () => {
+  const { getByLabelText, getByText, getByTestId } = render(<Signup />)
+
+  const email = getByLabelText(/email/i)
+  const password = getByLabelText(/password/i)
+  const firstName = getByLabelText(/first name/i)
+  const lastName = getByLabelText(/last name/i)
+
+  const emailInput = { target: { value: "blorg@gmail.com" } }
+  const passwordInput = { target: { value: "123" } }
+  const firstNameInput = { target: { value: "Blorg" } }
+  const lastNameInput = { target: { value: "Smith" } }
+
+  fireEvent.change(email, emailInput)
+  fireEvent.change(password, passwordInput)
+  fireEvent.change(firstName, firstNameInput)
+  fireEvent.change(lastName, lastNameInput)
+
+  const button = getByText(/sign up/i)
+  const errorMsg = getByTestId("signup-error-msg")
+
+  fireEvent.click(button)
+
+  expect(errorMsg).toHaveTextContent(
+    "Password must be at least 8 characters long.",
+  )
+})
+
+// test("On Passing Input validation, will Sign Up New User ", () => {
+//   const { getByLabelText, getByText, debug } = render(<Signup />)
+
+//   const email = getByLabelText(/email/i)
+//   const password = getByLabelText(/password/i)
+//   const firstName = getByLabelText(/first name/i)
+//   const lastName = getByLabelText(/last name/i)
+
+//   const emailInput = { target: { value: "blorg@gmail.com" } };
+//   const passwordInput = { target: { value: "87^ghY&r" } }
+//   const firstNameInput = { target: { value: "Blorg" } }
+//   const lastNameInput = { target: { value: "Smith" } }
+
+//   fireEvent.change(email, emailInput)
+//   fireEvent.change(password, passwordInput)
+//   fireEvent.change(firstName, firstNameInput)
+//   fireEvent.change(lastName, lastNameInput)
+
+//   const button = getByText(/sign up/i);
+
+//   debug(button)
+// })
