@@ -10,7 +10,7 @@ afterEach(() => {
 })
 
 jest.mock("AWS", () => ({
-  signUpAWS: jest.fn((...args) => Promise.resolve("12345")),
+  signUpAWS: jest.fn((...args) => Promise.resolve(true)),
 }))
 
 test("Container renders", () => {
@@ -136,7 +136,7 @@ test("On failing Password Input validation, will render error message ", () => {
   )
 })
 
-test("On Passing Input validation, will get AWS code ", async () => {
+test("On Passing Input validation, true bool shows successful User Sign Up  ", async () => {
   const { getByLabelText, getByText } = render(<Signup />)
 
   const email = getByLabelText(/email/i)
@@ -173,5 +173,5 @@ test("On Passing Input validation, will get AWS code ", async () => {
     lastName.value,
   )
 
-  expect(AWSCode).toEqual("12345")
+  expect(AWSCode).toEqual(true)
 })
