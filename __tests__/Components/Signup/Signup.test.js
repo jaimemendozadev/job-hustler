@@ -136,8 +136,8 @@ test("On failing Password Input validation, will render error message ", () => {
   )
 })
 
-test("On Passing Input validation, true bool shows successful User Sign Up  ", async () => {
-  const { getByLabelText, getByText } = render(<Signup />)
+test("On Passing Input validation, Confrmation Form render shows successful User Sign Up", async () => {
+  const { getByLabelText, getByText, getByTestId, debug } = render(<Signup />)
 
   const email = getByLabelText(/email/i)
   const password = getByLabelText(/password/i)
@@ -174,4 +174,11 @@ test("On Passing Input validation, true bool shows successful User Sign Up  ", a
   )
 
   expect(AWSCode).toEqual(true)
+  const confirmForm = getByTestId("success-signup-msg")
+
+  debug(confirmForm)
+
+  expect(confirmForm).toHaveTextContent(
+    /One Final Step: Enter Your Job Hustler Validation Code/i,
+  )
 })

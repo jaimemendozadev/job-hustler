@@ -2,6 +2,7 @@
 import React, { Component } from "react"
 import { signUpAWS } from "../../Services/AWS"
 import Input from "../Input"
+import Confirm from "../Confirm"
 import ErrorMessage from "../ErrorMessage"
 import { checkPassInput, checkForValidInputs } from "./utils"
 
@@ -89,7 +90,19 @@ class Signup extends Component<{}, State> {
   }
 
   render() {
-    const { email, password, firstName, lastName, errorMessage } = this.state
+    const {
+      email,
+      password,
+      firstName,
+      lastName,
+      errorMessage,
+      initSignUpSuccess,
+    } = this.state
+
+    if (initSignUpSuccess === true) {
+      return <Confirm />
+    }
+
     return (
       <form onSubmit={this.handleSignUp}>
         <h1>Signup</h1>
