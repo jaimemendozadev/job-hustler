@@ -2,7 +2,7 @@
 import React, { Component } from "react"
 import { signUpAWS } from "../../Services/AWS"
 import Input from "../Input"
-import { checkPassInput, checkStateObject } from "./utils"
+import { checkPassInput, checkForValidInputs } from "./utils"
 
 const defaultState = {
   email: "Email",
@@ -57,7 +57,7 @@ class Signup extends Component<{}, State> {
 
   handleSignUp = async (evt: SyntheticInputEvent<EventTarget>) => {
     evt.preventDefault()
-    const stateCheck = checkStateObject(this.state, defaultState)
+    const stateCheck = checkForValidInputs(this.state, defaultState)
 
     if (stateCheck.error === false) {
       const { email, password, firstName, lastName } = this.state

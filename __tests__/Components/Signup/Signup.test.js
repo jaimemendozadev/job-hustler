@@ -74,3 +74,22 @@ test("Can enter Last Name in Input", () => {
 
   expect(lastNameInput.value).toBe("Smith")
 })
+
+test("On Submit, will pass/fail Input validation ", () => {
+  const { getByLabelText } = render(<Signup />)
+
+  const email = getByLabelText(/email/i)
+  const password = getByLabelText(/password/i)
+  const firstName = getByLabelText(/first name/i)
+  const lastName = getByLabelText(/last name/i)
+
+  const emailInput = { target: { value: "" } }
+  const passwordInput = { target: { value: "" } }
+  const firstNameInput = { target: { value: "" } }
+  const lastNameInput = { target: { value: "" } }
+
+  fireEvent.change(email, emailInput)
+  fireEvent.change(password, passwordInput)
+  fireEvent.change(firstName, firstNameInput)
+  fireEvent.change(lastName, lastNameInput)
+})

@@ -1,4 +1,5 @@
 // @flow
+/* eslint no-useless-escape: 1 */
 
 type State = {
   email: string,
@@ -25,6 +26,37 @@ const validateEmail = (email: string): boolean => {
   return re.test(email)
 }
 
+const validatePassword = (password: string): string => {
+  const specialCharsRegex = /[\^\$\*\.\[\]\{\}\(\)\?\-\"\!\@\#\%\&\/\\\,\>\<\'\:\;\|\_\~\`]/
+
+  // Check password length
+  if (!password.length >= 8) {
+    return "Password must be at least 8 characters long."
+  }
+
+  // Check for legitimate characters
+  if (!password.search(/[a-zA-Z]/)) {
+    return "You must use Roman Letters in your password."
+  }
+
+  // Check for uppercase letters
+  if (!password.search(/[A-Z]/)) {
+    return "Password must include at least one Uppercase letter."
+  }
+
+  // Check for special characters
+  if (!password.search(specialCharsRegex)) {
+    return false
+  }
+
+  // Check for numbers
+  if (!password.search(/[0-9]/)) {
+    return "Password must include at least one Number."
+  }
+
+  return "Password passes validation."
+}
+
 const createErrorObject = (message: string): ErrorObject => {
   const errorObject = { error: false, message: "" }
 
@@ -36,11 +68,11 @@ const createErrorObject = (message: string): ErrorObject => {
 export const checkPassInput = (passwordInput: string) =>
   passwordInput === "Password" ? "text" : "password"
 
-export const checkStateObject = (
+export const checkForValidInputs = (
   state: State,
   defaults: Defaults,
 ): ErrorObject => {
-  const { email } = state
+  const { email, password } = state
 
   const stateKeys = Object.keys(defaults)
 
@@ -55,6 +87,13 @@ export const checkStateObject = (
   // Check for valid email
   if (validateEmail(email) === false) {
     return createErrorObject("Enter a valid email address.")
+  }
+
+  // Check for valid password
+  const passwordCheck = validatePassword(password)
+
+  if (passwordCheck !== "Password passes validation.") {
+    return createErrorObject(passwordCheck)
   }
 
   return { error: false, message: "" }
