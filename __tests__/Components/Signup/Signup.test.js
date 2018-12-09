@@ -1,10 +1,17 @@
+/* eslint no-unused-vars: 0 */
+
 import React from "react"
 import { render, fireEvent, cleanup } from "react-testing-library"
 import Signup from "Signup"
+import { signUpAWS as mockSignUpAWS } from "AWS"
 
 afterEach(() => {
   cleanup()
 })
+
+jest.mock("AWS", () => ({
+  signUpAWS: jest.fn((...args) => Promise.resolve("12345")),
+}))
 
 test("Container renders", () => {
   const { container } = render(<Signup />)
@@ -129,25 +136,42 @@ test("On failing Password Input validation, will render error message ", () => {
   )
 })
 
-// test("On Passing Input validation, will Sign Up New User ", () => {
-//   const { getByLabelText, getByText, debug } = render(<Signup />)
+test("On Passing Input validation, will get AWS code ", async () => {
+  const { getByLabelText, getByText } = render(<Signup />)
 
-//   const email = getByLabelText(/email/i)
-//   const password = getByLabelText(/password/i)
-//   const firstName = getByLabelText(/first name/i)
-//   const lastName = getByLabelText(/last name/i)
+  const email = getByLabelText(/email/i)
+  const password = getByLabelText(/password/i)
+  const firstName = getByLabelText(/first name/i)
+  const lastName = getByLabelText(/last name/i)
 
-//   const emailInput = { target: { value: "blorg@gmail.com" } };
-//   const passwordInput = { target: { value: "87^ghY&r" } }
-//   const firstNameInput = { target: { value: "Blorg" } }
-//   const lastNameInput = { target: { value: "Smith" } }
+  const emailInput = { target: { value: "blorg@gmail.com" } }
+  const passwordInput = { target: { value: "87^ghY&r" } }
+  const firstNameInput = { target: { value: "Blorg" } }
+  const lastNameInput = { target: { value: "Smith" } }
 
-//   fireEvent.change(email, emailInput)
-//   fireEvent.change(password, passwordInput)
-//   fireEvent.change(firstName, firstNameInput)
-//   fireEvent.change(lastName, lastNameInput)
+  fireEvent.change(email, emailInput)
+  fireEvent.change(password, passwordInput)
+  fireEvent.change(firstName, firstNameInput)
+  fireEvent.change(lastName, lastNameInput)
 
-//   const button = getByText(/sign up/i);
+  const button = getByText(/sign up/i)
 
-//   debug(button)
-// })
+  fireEvent.click(button)
+
+  expect(mockSignUpAWS).toHaveBeenCalledTimes(1)
+  expect(mockSignUpAWS).toHaveBeenCalledWith(
+    email.value,
+    password.value,
+    firstName.value,
+    lastName.value,
+  )
+
+  const AWSCode = await mockSignUpAWS(
+    email.value,
+    password.value,
+    firstName.value,
+    lastName.value,
+  )
+
+  expect(AWSCode).toEqual("12345")
+})
