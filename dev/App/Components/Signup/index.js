@@ -18,12 +18,14 @@ type State = {
   firstName: string,
   lastName: string,
   errorMessage: string,
+  initSignUpSuccess: boolean,
 }
 
 class Signup extends Component<{}, State> {
   state = {
     ...defaultState,
     errorMessage: "",
+    initSignUpSuccess: false,
   }
 
   handleOnBlur = (labelType: string) => {
@@ -62,8 +64,25 @@ class Signup extends Component<{}, State> {
 
     if (stateCheck.error === false) {
       const { email, password, firstName, lastName } = this.state
-      const AWSCode = await signUpAWS(email, password, firstName, lastName)
-      console.log("AWSCode is ", AWSCode)
+      const AWSSignUpResponse = await signUpAWS(
+        email,
+        password,
+        firstName,
+        lastName,
+      )
+
+      console.log("AWSSignUpResponse is ", AWSSignUpResponse)
+
+      if (AWSSignUpResponse.error === true) {
+        const { message } = AWSSignUpResponse
+        this.setState({ ...defaultState, errorMessage: message })
+      } else {
+        this.setState({
+          initSignUpSuccess: true,
+          errorMessage: "",
+          ...defaultState,
+        })
+      }
     } else {
       this.setState({ errorMessage: stateCheck.message })
     }

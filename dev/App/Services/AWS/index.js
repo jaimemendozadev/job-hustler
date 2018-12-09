@@ -1,5 +1,11 @@
 // @flow
 import Amplify, { Auth } from "aws-amplify"
+import createErrorObject from "./utils"
+
+type ErrorObject = {
+  error: boolean,
+  message: string,
+}
 
 const AWS_USER_POOL_ID = process.env.AWS_USER_POOL_ID
 const AWS_FED_POOL_ID = process.env.AWS_FED_POOL_ID
@@ -29,7 +35,7 @@ const signUpAWS = async (
   password: string,
   firstName: string,
   lastName: string,
-) => {
+): boolean | ErrorObject => {
   try {
     const signUpResult = await Auth.signUp({
       username: email,
@@ -41,16 +47,24 @@ const signUpAWS = async (
       },
     })
 
-    console.log("signUpResult from AWS is ", signUpResult)
+    const { user } = signUpResult
+    const { pool } = user
 
-    return signUpResult
+    console.log("signUpResult is ", signUpResult)
+    console.log("pool is ", pool)
+
+    if (pool.clientId !== AWS_CLIENT_ID) {
+      return createErrorObject(
+        "There was an error registering you. Please try again.",
+      )
+    }
+    return true
   } catch (error) {
     console.log("Error signing up user to AWS ", error)
-    const errorMessage = {
-      error: true,
-      message: "There was an error registering you. Please try again.",
-    }
-    return errorMessage
+
+    const { message } = error
+
+    return createErrorObject(message)
   }
 }
 

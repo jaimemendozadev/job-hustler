@@ -58,9 +58,8 @@ const validatePassword = (password: string): string => {
 }
 
 const createErrorObject = (message: string): ErrorObject => {
-  const errorObject = { error: false, message: "" }
+  const errorObject = { error: true, message: "" }
 
-  errorObject.error = true
   errorObject.message = message
   return errorObject
 }
