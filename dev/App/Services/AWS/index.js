@@ -71,23 +71,38 @@ const signUpAWS = async (
 const confirmAWSSignUp = async (username: string, code: string) => {
   try {
     // After retrieveing the confirmation code from the user
-    const signInResult = await Auth.confirmSignUp(username, code)
+    const confirmAWSResult = await Auth.confirmSignUp(username, code, {
+      forceAliasCreation: false,
+    })
 
-    console.log("signInResult from AWS is ", signInResult)
+    console.log("confirmAWSResult is ", confirmAWSResult)
 
-    return signInResult
+    return confirmAWSResult
   } catch (error) {
-    console.log("Error signing in user to AWS ", error)
+    console.log("Error confirming User sign up to AWS ", error)
 
-    const errorMessage = {
-      error: true,
-      message:
-        "There was an error signing you into the application. Please try again.",
-    }
-    return errorMessage
+    const { message } = error
+
+    return createErrorObject(message)
   }
 }
 
-export { signUpAWS, confirmAWSSignUp }
+const getCurrentAWSSession = async () => {
+  try {
+    const sessionResult = Auth.currentSession()
+
+    console.log("sessionResult from AWS is ", sessionResult)
+
+    return sessionResult
+  } catch (error) {
+    console.log("Error getting Session Info for Current User ", error)
+
+    const { message } = error
+
+    return createErrorObject(message)
+  }
+}
+
+export { signUpAWS, confirmAWSSignUp, getCurrentAWSSession }
 
 export default config

@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from "react"
 import Input from "../Input"
+import { confirmAWSSignUp, getCurrentAWSSession } from "../../Services/AWS"
 
 const defaultState = {
   username: "Please enter your user name.",
@@ -45,14 +46,21 @@ class Confirm extends Component<{}, State> {
     }
   }
 
-  handleSignUp = async (evt: SyntheticInputEvent<EventTarget>) => {
+  handleConfirmation = async (evt: SyntheticInputEvent<EventTarget>) => {
     evt.preventDefault()
+    const { username, code } = this.state
+
+    await confirmAWSSignUp(username, code)
+
+    const currentSessionInfo = await getCurrentAWSSession()
+
+    console.log("currentSessionInfo is ", currentSessionInfo)
   }
 
   render() {
     const { username, code } = this.state
     return (
-      <form onSubmit={this.handleSignUp}>
+      <form onSubmit={this.handleConfirmation}>
         <h1 data-testid="success-signup-msg">
           One Final Step: Enter Your Job Hustler Validation Code!
         </h1>

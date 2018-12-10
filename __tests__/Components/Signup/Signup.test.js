@@ -1,5 +1,3 @@
-/* eslint no-unused-vars: 0 */
-
 import React from "react"
 import { render, fireEvent, cleanup } from "react-testing-library"
 import Signup from "Signup"
@@ -10,7 +8,7 @@ afterEach(() => {
 })
 
 jest.mock("AWS", () => ({
-  signUpAWS: jest.fn((...args) => Promise.resolve(true)),
+  signUpAWS: jest.fn(() => Promise.resolve(true)),
 }))
 
 test("Container renders", () => {
