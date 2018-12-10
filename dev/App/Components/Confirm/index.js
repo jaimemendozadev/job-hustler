@@ -1,5 +1,6 @@
 // @flow
 import React, { Component } from "react"
+import { Redirect } from "react-router-dom"
 import Input from "../Input"
 import StatusMessage from "../StatusMessage"
 import { confirmAWSSignUp } from "../../Services/AWS"
@@ -7,12 +8,15 @@ import { confirmAWSSignUp } from "../../Services/AWS"
 const defaultState = {
   email: "Please enter your email.",
   code: "Please enter your code.",
+  successConfirm: false,
   statusMessage: "",
 }
 
 type State = {
   username: string,
   code: string,
+  successConfirm: boolean,
+  statusMessage: string,
 }
 
 class Confirm extends Component<{}, State> {
@@ -57,13 +61,19 @@ class Confirm extends Component<{}, State> {
     if (confirmAWSResult === "SUCCESS") {
       this.setState({
         ...defaultState,
+        successConfirm: true,
         statusMessage: "Your account was successfully confirmed!",
       })
     }
   }
 
   render() {
-    const { email, code, statusMessage } = this.state
+    const { email, code, successConfirm, statusMessage } = this.state
+
+    if (successConfirm === true) {
+      return <Redirect to={{ pathname: "/search" }} />
+    }
+
     return (
       <form onSubmit={this.handleConfirmation}>
         <h1 data-testid="success-signup-msg">

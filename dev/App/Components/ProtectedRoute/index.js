@@ -1,9 +1,11 @@
 // @flow
 import React, { Component } from "react"
+import { Route } from "react-router-dom"
 import { getCurrentAWSSession } from "../../Services/AWS"
 
 type Props = {
-  RenderComponent: () => mixed,
+  component: () => mixed,
+  path: string,
 }
 
 type State = {
@@ -24,15 +26,13 @@ class ProtectedRoute extends Component<Props, State> {
   }
 
   render() {
-    const { RenderComponent } = this.props
+    const { component: RenderComponent, ...rest } = this.props
     const { isAuthenticated } = this.state
 
-    console.log("isAuthenticated is ", isAuthenticated)
-    return (
-      <div>
-        <RenderComponent />
-      </div>
-    )
+    if (isAuthenticated === false) {
+      return <h1>Authenticating...</h1>
+    }
+    return <Route {...rest} render={props => <RenderComponent {...props} />} />
   }
 }
 
