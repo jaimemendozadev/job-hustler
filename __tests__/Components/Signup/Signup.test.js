@@ -99,7 +99,7 @@ test("On failing Email Input validation, will render error message ", () => {
   fireEvent.change(lastName, lastNameInput)
 
   const button = getByText(/sign up/i)
-  const errorMsg = getByTestId("signup-error-msg")
+  const errorMsg = getByTestId("status-msg")
 
   fireEvent.click(button)
 
@@ -125,7 +125,7 @@ test("On failing Password Input validation, will render error message ", () => {
   fireEvent.change(lastName, lastNameInput)
 
   const button = getByText(/sign up/i)
-  const errorMsg = getByTestId("signup-error-msg")
+  const errorMsg = getByTestId("status-msg")
 
   fireEvent.click(button)
 
@@ -135,7 +135,7 @@ test("On failing Password Input validation, will render error message ", () => {
 })
 
 test("On Passing Input validation, Confrmation Form render shows successful User Sign Up", async () => {
-  const { getByLabelText, getByText, getByTestId, debug } = render(<Signup />)
+  const { getByLabelText, getByText, getByTestId } = render(<Signup />)
 
   const email = getByLabelText(/email/i)
   const password = getByLabelText(/password/i)
@@ -173,8 +173,6 @@ test("On Passing Input validation, Confrmation Form render shows successful User
 
   expect(AWSCode).toEqual(true)
   const confirmForm = getByTestId("success-signup-msg")
-
-  debug(confirmForm)
 
   expect(confirmForm).toHaveTextContent(
     /One Final Step: Enter Your Job Hustler Validation Code/i,

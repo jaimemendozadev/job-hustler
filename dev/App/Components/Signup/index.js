@@ -3,7 +3,7 @@ import React, { Component } from "react"
 import { signUpAWS } from "../../Services/AWS"
 import Input from "../Input"
 import Confirm from "../Confirm"
-import ErrorMessage from "../ErrorMessage"
+import StatusMessage from "../StatusMessage"
 import { checkPassInput, checkForValidInputs } from "./utils"
 
 const defaultState = {
@@ -18,14 +18,14 @@ type State = {
   password: string,
   firstName: string,
   lastName: string,
-  errorMessage: string,
+  statusMessage: string,
   initSignUpSuccess: boolean,
 }
 
 class Signup extends Component<{}, State> {
   state = {
     ...defaultState,
-    errorMessage: "",
+    statusMessage: "",
     initSignUpSuccess: false,
   }
 
@@ -76,16 +76,16 @@ class Signup extends Component<{}, State> {
 
       if (AWSSignUpResponse.error === true) {
         const { message } = AWSSignUpResponse
-        this.setState({ ...defaultState, errorMessage: message })
+        this.setState({ ...defaultState, statusMessage: message })
       } else {
         this.setState({
           initSignUpSuccess: true,
-          errorMessage: "",
+          statusMessage: "",
           ...defaultState,
         })
       }
     } else {
-      this.setState({ errorMessage: stateCheck.message })
+      this.setState({ statusMessage: stateCheck.message })
     }
   }
 
@@ -95,7 +95,7 @@ class Signup extends Component<{}, State> {
       password,
       firstName,
       lastName,
-      errorMessage,
+      statusMessage,
       initSignUpSuccess,
     } = this.state
 
@@ -151,7 +151,7 @@ class Signup extends Component<{}, State> {
         />
 
         <button type="submit">Sign Up</button>
-        <ErrorMessage errorMessage={errorMessage} />
+        <StatusMessage statusMessage={statusMessage} />
       </form>
     )
   }

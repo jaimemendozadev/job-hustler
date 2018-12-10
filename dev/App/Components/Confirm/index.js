@@ -1,11 +1,13 @@
 // @flow
 import React, { Component } from "react"
 import Input from "../Input"
-import { confirmAWSSignUp, getCurrentAWSSession } from "../../Services/AWS"
+import StatusMessage from "../StatusMessage"
+import { confirmAWSSignUp } from "../../Services/AWS"
 
 const defaultState = {
-  username: "Please enter your user name.",
+  email: "Please enter your email.",
   code: "Please enter your code.",
+  statusMessage: "",
 }
 
 type State = {
@@ -48,31 +50,34 @@ class Confirm extends Component<{}, State> {
 
   handleConfirmation = async (evt: SyntheticInputEvent<EventTarget>) => {
     evt.preventDefault()
-    const { username, code } = this.state
+    const { email, code } = this.state
 
-    await confirmAWSSignUp(username, code)
+    const confirmAWSResult = await confirmAWSSignUp(email, code)
 
-    const currentSessionInfo = await getCurrentAWSSession()
-
-    console.log("currentSessionInfo is ", currentSessionInfo)
+    if (confirmAWSResult === "SUCCESS") {
+      this.setState({
+        ...defaultState,
+        statusMessage: "Your account was successfully confirmed!",
+      })
+    }
   }
 
   render() {
-    const { username, code } = this.state
+    const { email, code, statusMessage } = this.state
     return (
       <form onSubmit={this.handleConfirmation}>
         <h1 data-testid="success-signup-msg">
           One Final Step: Enter Your Job Hustler Validation Code!
         </h1>
         <Input
-          htmlFor="username"
-          label="Username"
-          onBlur={() => this.handleOnBlur("username")}
-          onFocus={() => this.handleOnFocus("username")}
-          onChange={evt => this.handleInput(evt, "username")}
+          htmlFor="email"
+          label="email"
+          onBlur={() => this.handleOnBlur("email")}
+          onFocus={() => this.handleOnFocus("email")}
+          onChange={evt => this.handleInput(evt, "email")}
           type="text"
-          id="username"
-          value={username}
+          id="email"
+          value={email}
         />
 
         <Input
@@ -86,6 +91,7 @@ class Confirm extends Component<{}, State> {
           value={code}
         />
         <button type="submit">Confirm</button>
+        <StatusMessage statusMessage={statusMessage} />
       </form>
     )
   }

@@ -75,8 +75,6 @@ const confirmAWSSignUp = async (username: string, code: string) => {
       forceAliasCreation: false,
     })
 
-    console.log("confirmAWSResult is ", confirmAWSResult)
-
     return confirmAWSResult
   } catch (error) {
     console.log("Error confirming User sign up to AWS ", error)
