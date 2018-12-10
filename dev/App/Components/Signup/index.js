@@ -78,10 +78,14 @@ class Signup extends Component<{}, State> {
         const { message } = AWSSignUpResponse
         this.setState({ ...defaultState, statusMessage: message })
       } else {
+        const newState = { ...defaultState, ...{ password } }
+
+        console.log("newState after handleSignUp ", newState)
+
         this.setState({
           initSignUpSuccess: true,
           statusMessage: "",
-          ...defaultState,
+          ...newState,
         })
       }
     } else {
@@ -100,7 +104,7 @@ class Signup extends Component<{}, State> {
     } = this.state
 
     if (initSignUpSuccess === true) {
-      return <Confirm />
+      return <Confirm {...this.props} password={password} />
     }
 
     return (

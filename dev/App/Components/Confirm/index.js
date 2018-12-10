@@ -1,9 +1,8 @@
 // @flow
 import React, { Component } from "react"
-import { Redirect } from "react-router-dom"
 import Input from "../Input"
 import StatusMessage from "../StatusMessage"
-import { confirmAWSSignUp } from "../../Services/AWS"
+import { confirmAWSSignUp, loginToApp } from "../../Services/AWS"
 
 const defaultState = {
   email: "Please enter your email.",
@@ -12,14 +11,18 @@ const defaultState = {
   statusMessage: "",
 }
 
+type Props = {
+  password: string,
+}
+
 type State = {
-  username: string,
+  email: string,
   code: string,
   successConfirm: boolean,
   statusMessage: string,
 }
 
-class Confirm extends Component<{}, State> {
+class Confirm extends Component<Props, State> {
   state = defaultState
 
   handleOnBlur = (labelType: string) => {
@@ -52,10 +55,15 @@ class Confirm extends Component<{}, State> {
     }
   }
 
-  handleRedirect = (successConfirm: boolean) => {
-    if (successConfirm === true) {
-      setTimeout(5000, () => <Redirect to={{ pathname: "/login" }} />)
-    }
+  handleRedirect = async () => {
+    const { password, history } = this.props
+    const { email } = this.state
+
+    // Login to App
+    await loginToApp(email, password)
+
+    // Redirect User to /search
+    history.push("/search")
   }
 
   handleConfirmation = async (evt: SyntheticInputEvent<EventTarget>) => {
@@ -65,16 +73,23 @@ class Confirm extends Component<{}, State> {
     const confirmAWSResult = await confirmAWSSignUp(email, code)
 
     if (confirmAWSResult === "SUCCESS") {
+      this.setState(
+        {
+          statusMessage: "Your account was successfully confirmed!",
+        },
+        this.handleRedirect,
+      )
+    } else {
+      const { message } = confirmAWSResult
+
       this.setState({
-        ...defaultState,
-        successConfirm: true,
-        statusMessage: "Your account was successfully confirmed!",
+        statusMessage: message,
       })
     }
   }
 
   render() {
-    const { email, code, successConfirm, statusMessage } = this.state
+    const { email, code, statusMessage } = this.state
 
     return (
       <form onSubmit={this.handleConfirmation}>
@@ -104,7 +119,6 @@ class Confirm extends Component<{}, State> {
         />
         <button type="submit">Confirm</button>
         <StatusMessage statusMessage={statusMessage} />
-        {this.handleRedirect(successConfirm)}
       </form>
     )
   }

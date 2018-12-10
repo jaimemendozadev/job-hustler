@@ -87,7 +87,7 @@ const confirmAWSSignUp = async (username: string, code: string) => {
 
 const loginToApp = async (username: string, password: string) => {
   try {
-    const loginResult = Auth.signIn(username, password)
+    const loginResult = await Auth.signIn(username, password)
 
     console.log("loginResult from AWS is ", loginResult)
 
