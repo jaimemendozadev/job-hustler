@@ -11,10 +11,6 @@ const AWS_USER_POOL_ID = process.env.AWS_USER_POOL_ID
 const AWS_FED_POOL_ID = process.env.AWS_FED_POOL_ID
 const AWS_CLIENT_ID = process.env.AWS_CLIENT_ID
 
-const putInStorage = stuff => {
-  console.log("stuff inside storage is ", stuff)
-}
-
 const config = Amplify.configure({
   Auth: {
     // REQUIRED only for Federated Authentication - Amazon Cognito Identity Pool ID
@@ -31,8 +27,6 @@ const config = Amplify.configure({
 
     // OPTIONAL - Enforce user authentication prior to accessing AWS resources or not
     mandatorySignIn: true,
-
-    storage: putInStorage,
   },
 })
 
@@ -91,6 +85,22 @@ const confirmAWSSignUp = async (username: string, code: string) => {
   }
 }
 
+const loginToApp = async (username: string, password: string) => {
+  try {
+    const loginResult = Auth.signIn(username, password)
+
+    console.log("loginResult from AWS is ", loginResult)
+
+    return loginResult
+  } catch (error) {
+    console.log("Error loggin user into App ", error)
+
+    const { message } = error
+
+    return createErrorObject(message)
+  }
+}
+
 const getCurrentAWSSession = async () => {
   try {
     const sessionResult = Auth.currentSession()
@@ -107,6 +117,6 @@ const getCurrentAWSSession = async () => {
   }
 }
 
-export { signUpAWS, confirmAWSSignUp, getCurrentAWSSession }
+export { signUpAWS, confirmAWSSignUp, loginToApp, getCurrentAWSSession }
 
 export default config

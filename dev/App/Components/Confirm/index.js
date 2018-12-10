@@ -83,7 +83,7 @@ class Confirm extends Component<{}, State> {
         </h1>
         <Input
           htmlFor="email"
-          label="email"
+          label="Email"
           onBlur={() => this.handleOnBlur("email")}
           onFocus={() => this.handleOnFocus("email")}
           onChange={evt => this.handleInput(evt, "email")}
