@@ -52,6 +52,12 @@ class Confirm extends Component<{}, State> {
     }
   }
 
+  handleRedirect = (successConfirm: boolean) => {
+    if (successConfirm === true) {
+      setTimeout(5000, () => <Redirect to={{ pathname: "/login" }} />)
+    }
+  }
+
   handleConfirmation = async (evt: SyntheticInputEvent<EventTarget>) => {
     evt.preventDefault()
     const { email, code } = this.state
@@ -69,10 +75,6 @@ class Confirm extends Component<{}, State> {
 
   render() {
     const { email, code, successConfirm, statusMessage } = this.state
-
-    if (successConfirm === true) {
-      return <Redirect to={{ pathname: "/search" }} />
-    }
 
     return (
       <form onSubmit={this.handleConfirmation}>
@@ -102,6 +104,7 @@ class Confirm extends Component<{}, State> {
         />
         <button type="submit">Confirm</button>
         <StatusMessage statusMessage={statusMessage} />
+        {this.handleRedirect(successConfirm)}
       </form>
     )
   }

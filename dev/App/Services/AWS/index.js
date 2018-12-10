@@ -11,6 +11,10 @@ const AWS_USER_POOL_ID = process.env.AWS_USER_POOL_ID
 const AWS_FED_POOL_ID = process.env.AWS_FED_POOL_ID
 const AWS_CLIENT_ID = process.env.AWS_CLIENT_ID
 
+const putInStorage = stuff => {
+  console.log("stuff inside storage is ", stuff)
+}
+
 const config = Amplify.configure({
   Auth: {
     // REQUIRED only for Federated Authentication - Amazon Cognito Identity Pool ID
@@ -27,6 +31,8 @@ const config = Amplify.configure({
 
     // OPTIONAL - Enforce user authentication prior to accessing AWS resources or not
     mandatorySignIn: true,
+
+    storage: putInStorage,
   },
 })
 
