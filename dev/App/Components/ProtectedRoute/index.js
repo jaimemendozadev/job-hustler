@@ -1,3 +1,4 @@
+/* eslint camelcase: 0 */
 // @flow
 import React, { Component } from "react"
 import { Route } from "react-router-dom"
@@ -18,14 +19,24 @@ class ProtectedRoute extends Component<Props, State> {
   }
 
   componentDidMount = async () => {
-    console.log("Do something")
+    const {
+      location: { state },
+    } = this.props
+    const AWSSessionPayload = await getCurrentAWSSession()
 
-    const AWSSessionInfo = getCurrentAWSSession()
+    console.log("AWSSessionPayload  is ", AWSSessionPayload)
 
-    console.log("AWSSessionInfo is ", AWSSessionInfo)
+    const { email, email_verified } = AWSSessionPayload
+
+    if (state.email === email && email_verified === true) {
+      this.setState({
+        isAuthenticated: true,
+      })
+    }
   }
 
   render() {
+    console.log("this.props inside Protectedroute ", this.props)
     const { component: RenderComponent, ...rest } = this.props
     const { isAuthenticated } = this.state
 

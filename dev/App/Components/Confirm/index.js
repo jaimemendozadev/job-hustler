@@ -63,7 +63,12 @@ class Confirm extends Component<Props, State> {
     await loginToApp(email, password)
 
     // Redirect User to /search
-    history.push("/search")
+    const pathToSearch = {
+      pathname: "/search",
+      state: { email },
+    }
+
+    history.push(pathToSearch)
   }
 
   handleConfirmation = async (evt: SyntheticInputEvent<EventTarget>) => {

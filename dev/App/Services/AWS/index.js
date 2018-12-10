@@ -103,11 +103,15 @@ const loginToApp = async (username: string, password: string) => {
 
 const getCurrentAWSSession = async () => {
   try {
-    const sessionResult = Auth.currentSession()
+    const sessionResult = await Auth.currentSession()
 
     console.log("sessionResult from AWS is ", sessionResult)
 
-    return sessionResult
+    const {
+      idToken: { payload },
+    } = sessionResult
+
+    return payload
   } catch (error) {
     console.log("Error getting Session Info for Current User ", error)
 

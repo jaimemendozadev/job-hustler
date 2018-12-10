@@ -72,15 +72,11 @@ class Signup extends Component<{}, State> {
         lastName,
       )
 
-      console.log("AWSSignUpResponse is ", AWSSignUpResponse)
-
       if (AWSSignUpResponse.error === true) {
         const { message } = AWSSignUpResponse
         this.setState({ ...defaultState, statusMessage: message })
       } else {
         const newState = { ...defaultState, ...{ password } }
-
-        console.log("newState after handleSignUp ", newState)
 
         this.setState({
           initSignUpSuccess: true,
