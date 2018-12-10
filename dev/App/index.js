@@ -1,6 +1,6 @@
 import React from "react"
 import Amplify from "aws-amplify"
-import { BrowserRouter, Route } from "react-router-dom"
+import { BrowserRouter, Route, Switch } from "react-router-dom"
 import ProtectedRoute from "./Components/ProtectedRoute"
 import Signup from "./Components/Signup"
 import EmailFinder from "./Components/EmailFinder"
@@ -10,8 +10,10 @@ Amplify.configure(config)
 
 const App = () => (
   <BrowserRouter>
-    <Route path="/signup" component={Signup} />
-    <ProtectedRoute component={EmailFinder} path="/search" />
+    <Switch>
+      <Route path="/signup" component={Signup} />
+      <ProtectedRoute component={EmailFinder} path="/search" />
+    </Switch>
   </BrowserRouter>
 )
 
