@@ -1,12 +1,11 @@
 // @flow
 /* eslint no-useless-escape: 0 */
 
-type State = {
+type StateArg = {
   email: string,
   password: string,
   firstName: string,
   lastName: string,
-  errorMessage: string,
 }
 
 type Defaults = {
@@ -46,7 +45,7 @@ const validatePassword = (password: string): string => {
 
   // Check for special characters
   if (password.search(specialCharsRegex) === -1) {
-    return false
+    return "Password must include at least one Special character."
   }
 
   // Check for numbers
@@ -68,7 +67,7 @@ export const checkPassInput = (passwordInput: string) =>
   passwordInput === "Password" ? "text" : "password"
 
 export const checkForValidInputs = (
-  state: State,
+  state: StateArg,
   defaults: Defaults,
 ): ErrorObject => {
   const { email, password } = state

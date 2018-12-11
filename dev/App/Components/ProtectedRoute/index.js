@@ -12,7 +12,7 @@ const defaultState = {
 }
 
 type Props = {
-  component: () => mixed,
+  component: () => any,
   path: string,
 }
 

@@ -61,6 +61,7 @@ class Signup extends Component<{}, State> {
 
   handleSignUp = async (evt: SyntheticInputEvent<EventTarget>) => {
     evt.preventDefault()
+
     const stateCheck = checkForValidInputs(this.state, defaultState)
 
     if (stateCheck.error === false) {
