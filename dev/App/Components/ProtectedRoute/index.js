@@ -19,7 +19,7 @@ type Props = {
 type State = {
   isAuthenticated: boolean,
   authFail: boolean,
-  statusMessage: "",
+  statusMessage: string,
 }
 
 class ProtectedRoute extends Component<Props, State> {

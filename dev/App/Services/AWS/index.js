@@ -2,11 +2,6 @@
 import Amplify, { Auth } from "aws-amplify"
 import createErrorObject from "./utils"
 
-type ErrorObject = {
-  error: boolean,
-  message: string,
-}
-
 const AWS_USER_POOL_ID = process.env.AWS_USER_POOL_ID
 const AWS_FED_POOL_ID = process.env.AWS_FED_POOL_ID
 const AWS_CLIENT_ID = process.env.AWS_CLIENT_ID
@@ -35,7 +30,7 @@ const signUpAWS = async (
   password: string,
   firstName: string,
   lastName: string,
-): boolean | ErrorObject => {
+): Promise<any> => {
   try {
     const signUpResult = await Auth.signUp({
       username: email,
@@ -68,7 +63,10 @@ const signUpAWS = async (
   }
 }
 
-const confirmAWSSignUp = async (username: string, code: string) => {
+const confirmAWSSignUp = async (
+  username: string,
+  code: string,
+): Promise<any> => {
   try {
     // After retrieveing the confirmation code from the user
     const confirmAWSResult = await Auth.confirmSignUp(username, code, {
@@ -85,7 +83,7 @@ const confirmAWSSignUp = async (username: string, code: string) => {
   }
 }
 
-const loginToApp = async (username: string, password: string) => {
+const loginToApp = async (username: string, password: string): Promise<any> => {
   try {
     const loginResult = await Auth.signIn(username, password)
 
@@ -101,7 +99,7 @@ const loginToApp = async (username: string, password: string) => {
   }
 }
 
-const getCurrentAWSSession = async () => {
+const getCurrentAWSSession = async (): Promise<any> => {
   try {
     const sessionResult = await Auth.currentSession()
 
