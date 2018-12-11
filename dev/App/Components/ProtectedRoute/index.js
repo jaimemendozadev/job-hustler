@@ -3,6 +3,13 @@
 import React, { Component } from "react"
 import { Route } from "react-router-dom"
 import { getCurrentAWSSession } from "../../Services/AWS"
+import StatusMessage from "../StatusMessage"
+
+const defaultState = {
+  isAuthenticated: false,
+  authFail: false,
+  statusMessage: "",
+}
 
 type Props = {
   component: () => mixed,
@@ -11,17 +18,18 @@ type Props = {
 
 type State = {
   isAuthenticated: boolean,
+  authFail: boolean,
+  statusMessage: "",
 }
 
 class ProtectedRoute extends Component<Props, State> {
-  state = {
-    isAuthenticated: false,
-  }
+  state = defaultState
 
   componentDidMount = async () => {
     const {
       location: { state },
     } = this.props
+
     const AWSSessionPayload = await getCurrentAWSSession()
 
     console.log("AWSSessionPayload  is ", AWSSessionPayload)
@@ -33,16 +41,30 @@ class ProtectedRoute extends Component<Props, State> {
         isAuthenticated: true,
       })
     }
+
+    if (AWSSessionPayload.error === true) {
+      const message =
+        "There was an error verifying your session. Try Logging in again."
+
+      this.setState({
+        statusMessage: message,
+      })
+    }
   }
 
   render() {
     console.log("this.props inside Protectedroute ", this.props)
     const { component: RenderComponent, ...rest } = this.props
-    const { isAuthenticated } = this.state
+    const { isAuthenticated, authFail, statusMessage } = this.state
 
     if (isAuthenticated === false) {
       return <h1>Authenticating...</h1>
     }
+
+    if (authFail === true && statusMessage) {
+      return <StatusMessage statusMessage={statusMessage} />
+    }
+
     return <Route {...rest} render={props => <RenderComponent {...props} />} />
   }
 }
