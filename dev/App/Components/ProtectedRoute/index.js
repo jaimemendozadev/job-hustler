@@ -62,7 +62,7 @@ class ProtectedRoute extends Component<Props, State> {
     }
 
     if (authFail === true && statusMessage) {
-      return <StatusMessage statusMessage={statusMessage} />
+      return <StatusMessage callback={null} statusMessage={statusMessage} />
     }
 
     return <Route {...rest} render={props => <RenderComponent {...props} />} />
