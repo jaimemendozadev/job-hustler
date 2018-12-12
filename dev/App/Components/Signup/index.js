@@ -152,7 +152,7 @@ class Signup extends Component<{}, State> {
         />
 
         <button type="submit">Sign Up</button>
-        <StatusMessage callback={null} statusMessage={statusMessage} />
+        <StatusMessage statusMessage={statusMessage} />
       </form>
     )
   }

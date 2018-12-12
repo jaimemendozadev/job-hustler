@@ -1,14 +1,16 @@
 /* eslint camelcase: 0 */
 // @flow
 import React, { Component } from "react"
-import { Route } from "react-router-dom"
+import { Route, Redirect } from "react-router-dom"
 import { getCurrentAWSSession } from "../../Services/AWS"
 import StatusMessage from "../StatusMessage"
+import callbackDelay from "./utils"
 
 const defaultState = {
   isAuthenticated: false,
   authFail: false,
   statusMessage: "",
+  redirectTo: "",
 }
 
 type Props = {
@@ -20,10 +22,28 @@ type State = {
   isAuthenticated: boolean,
   authFail: boolean,
   statusMessage: string,
+  redirectTo: string,
 }
 
 class ProtectedRoute extends Component<Props, State> {
   state = defaultState
+
+  componentDidUpdate = async (_prevProps, prevState) => {
+    const { authFail } = this.state
+
+    console.log("_prevProps inside CDU ", _prevProps)
+    console.log("this.props inside CDU ", this.props)
+
+    if (prevState.authFail !== authFail) {
+      const RedirectResult = await callbackDelay()
+
+      console.log("RedirectResult ", RedirectResult)
+
+      this.setState({
+        redirectTo: "/login",
+      })
+    }
+  }
 
   componentDidMount = async () => {
     const {
@@ -56,20 +76,18 @@ class ProtectedRoute extends Component<Props, State> {
   render() {
     console.log("this.props inside Protectedroute ", this.props)
     const { component: RenderComponent, ...rest } = this.props
-    const { history } = this.props
-    const { isAuthenticated, authFail, statusMessage } = this.state
+    const { isAuthenticated, authFail, statusMessage, redirectTo } = this.state
+
+    if (redirectTo.length) {
+      return <Redirect to={redirectTo} />
+    }
 
     if (isAuthenticated === false && !authFail) {
-      return <StatusMessage callback={null} statusMessage="Authenticating..." />
+      return <StatusMessage statusMessage="Authenticating..." />
     }
 
     if (authFail === true && statusMessage) {
-      return (
-        <StatusMessage
-          callback={() => history.push("/login")}
-          statusMessage={statusMessage}
-        />
-      )
+      return <StatusMessage statusMessage={statusMessage} />
     }
 
     return <Route {...rest} render={props => <RenderComponent {...props} />} />

@@ -123,7 +123,7 @@ class Confirm extends Component<Props, State> {
           value={code}
         />
         <button type="submit">Confirm</button>
-        <StatusMessage callback={null} statusMessage={statusMessage} />
+        <StatusMessage statusMessage={statusMessage} />
       </form>
     )
   }
