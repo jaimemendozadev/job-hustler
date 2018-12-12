@@ -31,13 +31,8 @@ class ProtectedRoute extends Component<Props, State> {
   componentDidUpdate = async (_prevProps, prevState) => {
     const { authFail } = this.state
 
-    console.log("_prevProps inside CDU ", _prevProps)
-    console.log("this.props inside CDU ", this.props)
-
     if (prevState.authFail !== authFail) {
-      const RedirectResult = await callbackDelay()
-
-      console.log("RedirectResult ", RedirectResult)
+      await callbackDelay()
 
       this.setState({
         redirectTo: "/login",
@@ -51,8 +46,6 @@ class ProtectedRoute extends Component<Props, State> {
     } = this.props
 
     const AWSSessionPayload = await getCurrentAWSSession()
-
-    console.log("AWSSessionPayload  is ", AWSSessionPayload)
 
     if (AWSSessionPayload.error === true) {
       const message =
@@ -74,7 +67,6 @@ class ProtectedRoute extends Component<Props, State> {
   }
 
   render() {
-    console.log("this.props inside Protectedroute ", this.props)
     const { component: RenderComponent, ...rest } = this.props
     const { isAuthenticated, authFail, statusMessage, redirectTo } = this.state
 
