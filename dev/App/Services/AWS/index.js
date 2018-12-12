@@ -110,6 +110,8 @@ const getCurrentAWSSession = async (): Promise<any> => {
     } = sessionResult
 
     return payload
+
+    // return createErrorObject("Testing for Error Redirect in ProtectedRoute")
   } catch (error) {
     console.log("Error getting Session Info for Current User ", error)
 

@@ -6,7 +6,10 @@ type Props = {
   callback: null | (() => any),
 }
 
-const handleCallback = (callback: () => any) => callback()
+const handleCallback = (callback: () => any) => {
+  console.log("inside handleCallback")
+  callback()
+}
 
 const StatusMessage = (props: Props) => (
   <div data-testid="status-msg">
