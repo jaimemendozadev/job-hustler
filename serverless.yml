@@ -15,7 +15,8 @@ functions:
           path: /search
           method: GET
           cors: true
-          authorizer: aws_iam
+          authorizer:
+            arn: ${ssm:/jobhustler/cognito-arn~true} # ~true decrypts SecureString params
 
   getUser:
     handler: api/handler.getUser
@@ -24,7 +25,8 @@ functions:
           path: /user
           method: GET
           cors: true
-          authorizer: aws_iam
+          authorizer:
+            arn: ${ssm:/jobhustler/cognito-arn~true}
 
   enrollUser:
     handler: api/handler.enrollUser
@@ -33,4 +35,5 @@ functions:
           path: /enroll
           method: GET
           cors: true
-          authorizer: aws_iam
+          authorizer:
+            arn: ${ssm:/jobhustler/cognito-arn~true}

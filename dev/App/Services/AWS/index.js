@@ -45,7 +45,7 @@ const signUpAWS = async (
     const { user } = signUpResult
     const { pool } = user
 
-    console.log("signUpResult is ", signUpResult)
+    console.log("AWS signUpResult is ", signUpResult)
     console.log("pool is ", pool)
 
     if (pool.clientId !== AWS_CLIENT_ID) {
@@ -72,6 +72,8 @@ const confirmAWSSignUp = async (
     const confirmAWSResult = await Auth.confirmSignUp(username, code, {
       forceAliasCreation: false,
     })
+
+    console.log("confirmAWSResult is ", confirmAWSResult)
 
     return confirmAWSResult
   } catch (error) {
