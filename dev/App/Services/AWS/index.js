@@ -7,6 +7,7 @@ const AWS_FED_POOL_ID = process.env.AWS_FED_POOL_ID
 const AWS_CLIENT_ID = process.env.AWS_CLIENT_ID
 const AWS_API_GATEWAY_NAME = process.env.AWS_API_GATEWAY_NAME
 const AWS_API_GATEWAY_URL = process.env.AWS_API_GATEWAY_URL
+const AWS_API_GATEWAY_REGION = process.env.AWS_API_GATEWAY_REGION
 
 const config = Amplify.configure({
   Auth: {
@@ -30,6 +31,7 @@ const config = Amplify.configure({
       {
         name: AWS_API_GATEWAY_NAME,
         endpoint: AWS_API_GATEWAY_URL,
+        region: AWS_API_GATEWAY_REGION,
       },
     ],
   },

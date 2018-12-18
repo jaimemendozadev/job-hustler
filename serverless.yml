@@ -15,8 +15,11 @@ functions:
           path: /search
           method: GET
           cors: true
+          integration: lambda
           authorizer:
             arn: ${ssm:/jobhustler/cognito-arn~true} # ~true decrypts SecureString params
+            claims: 
+              - email
 
   getUser:
     handler: api/handler.getUser
@@ -25,8 +28,11 @@ functions:
           path: /user
           method: GET
           cors: true
+          integration: lambda
           authorizer:
             arn: ${ssm:/jobhustler/cognito-arn~true}
+            claims:
+              - email
 
   enrollUser:
     handler: api/handler.enrollUser
@@ -35,5 +41,8 @@ functions:
           path: /enroll
           method: GET
           cors: true
+          integration: lambda
           authorizer:
             arn: ${ssm:/jobhustler/cognito-arn~true}
+            claims:
+              - email
