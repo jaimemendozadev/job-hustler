@@ -24,6 +24,7 @@
   "dependencies": {
     "@babel/runtime": "^7.1.5",
     "aws-amplify": "^1.1.11",
+    "middy": "^0.19.4",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-router-dom": "^4.3.1",

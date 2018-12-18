@@ -5,6 +5,8 @@ import createErrorObject from "./utils"
 const AWS_USER_POOL_ID = process.env.AWS_USER_POOL_ID
 const AWS_FED_POOL_ID = process.env.AWS_FED_POOL_ID
 const AWS_CLIENT_ID = process.env.AWS_CLIENT_ID
+const AWS_API_GATEWAY_NAME = process.env.AWS_API_GATEWAY_NAME
+const AWS_API_GATEWAY_URL = process.env.AWS_API_GATEWAY_URL
 
 const config = Amplify.configure({
   Auth: {
@@ -22,6 +24,14 @@ const config = Amplify.configure({
 
     // OPTIONAL - Enforce user authentication prior to accessing AWS resources or not
     mandatorySignIn: true,
+  },
+  API: {
+    endpoints: [
+      {
+        name: AWS_API_GATEWAY_NAME,
+        endpoint: AWS_API_GATEWAY_URL,
+      },
+    ],
   },
 })
 
