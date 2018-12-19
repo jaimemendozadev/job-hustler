@@ -7,9 +7,9 @@ const Dotenv = require("dotenv-webpack")
 const publicFolder = path.resolve(__dirname, "public")
 const entry = path.resolve(__dirname, "dev/index.js")
 
-module.exports = {
+module.exports = ({ mode } = { mode: "production" }) => ({
   entry,
-  mode: "development",
+  mode,
   output: {
     path: publicFolder,
     filename: "bundle.js",
@@ -24,4 +24,4 @@ module.exports = {
     ],
   },
   plugins: [new Dotenv(), new HotModuleReplacementPlugin()],
-}
+})
