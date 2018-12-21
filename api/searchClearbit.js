@@ -4,6 +4,7 @@ const { cors } = require("middy/middlewares")
 const handler = (event, context, callback) => {
   try {
     console.log("Successfully fired Lambda!")
+
     const body = JSON.stringify({
       error: false,
       msg: "Successfully fired Lambda!",

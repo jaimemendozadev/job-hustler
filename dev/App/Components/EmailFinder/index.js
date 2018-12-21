@@ -19,9 +19,13 @@ class EmailFinder extends Component {
         Authorization: jwtToken,
       },
     }
-    const AWSResult = await API.get(AWS_API_GATEWAY_NAME, "/search", init)
+    try {
+      const AWSResult = await API.get(AWS_API_GATEWAY_NAME, "/search", init)
 
-    console.log("AWSResult from CDM Search is ", AWSResult)
+      console.log("AWSResult from CDM Search is ", AWSResult)
+    } catch (error) {
+      console.log("error in EmailFinder ", error)
+    }
   }
 
   render() {
