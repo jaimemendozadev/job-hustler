@@ -1,10 +1,6 @@
-const middy = require("middy")
-const { cors } = require("middy/middlewares")
-
-const handler = (event, context, callback) => {
+module.exports = (event, context, callback) => {
   try {
     console.log("Successfully fired Lambda!")
-
     const body = JSON.stringify({
       error: false,
       msg: "Successfully fired Lambda!",
@@ -12,10 +8,11 @@ const handler = (event, context, callback) => {
 
     const message = {
       statusCode: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
       body,
     }
-
-    console.log("cors inside searchClearbit is ", cors)
 
     callback(null, message)
   } catch (error) {
@@ -26,6 +23,7 @@ const handler = (event, context, callback) => {
 
     const message = {
       statusCode: 200,
+      headers: {},
       body,
     }
 
@@ -33,5 +31,3 @@ const handler = (event, context, callback) => {
     callback(error, message)
   }
 }
-
-module.exports = middy(handler).use(cors())

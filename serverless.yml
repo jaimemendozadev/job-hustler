@@ -19,11 +19,7 @@ functions:
             headers:
               - Content-Type
               - Access-Control-Allow-Origin
-              - X-Amz-Date
               - Authorization
-              - X-Api-Key
-              - X-Amz-Security-Token
-              - X-Amz-User-Agent
           authorizer:
             arn: ${ssm:/jobhustler/cognito-arn~true} # ~true decrypts 
 

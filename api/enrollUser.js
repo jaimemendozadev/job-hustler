@@ -8,7 +8,9 @@ module.exports = (event, context, callback) => {
 
     const message = {
       statusCode: 200,
-      headers: {},
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
       body,
     }
 
