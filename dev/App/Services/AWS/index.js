@@ -85,7 +85,7 @@ const confirmAWSSignUp = async (
       forceAliasCreation: false,
     })
 
-    console.log("confirmAWSResult is ", confirmAWSResult)
+    console.log("confirmAWSSignUp result is ", confirmAWSResult)
 
     return confirmAWSResult
   } catch (error) {

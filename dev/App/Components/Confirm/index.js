@@ -7,12 +7,21 @@ import { confirmAWSSignUp, loginToApp } from "../../Services/AWS"
 const defaultState = {
   email: "Please enter your email.",
   code: "Please enter your code.",
+  password: "",
   successConfirm: false,
   statusMessage: "",
 }
 
+type History = {
+  push: (pathObject: { pathname: string, state: { email: string } }) => void,
+}
+
 type Props = {
+  email: string,
   password: string,
+  history: History,
+  location: {},
+  match: {},
 }
 
 type State = {
@@ -20,10 +29,14 @@ type State = {
   code: string,
   successConfirm: boolean,
   statusMessage: string,
+  password: string,
 }
 
 class Confirm extends Component<Props, State> {
-  state = defaultState
+  state = {
+    ...defaultState,
+    ...{ email: this.props.email, password: this.props.password },
+  }
 
   handleOnBlur = (labelType: string) => {
     const stateValue = this.state[labelType]
@@ -56,8 +69,11 @@ class Confirm extends Component<Props, State> {
   }
 
   handleRedirect = async () => {
-    const { password, history } = this.props
-    const { email } = this.state
+    const { history } = this.props
+    const { email, password } = this.state
+
+    console.log("this.state inside handleRedirect ", this.state)
+    console.log("this.props inside handleRedirect ", this.props)
 
     // Login to App
     await loginToApp(email, password)
@@ -74,6 +90,8 @@ class Confirm extends Component<Props, State> {
   handleConfirmation = async (evt: SyntheticInputEvent<EventTarget>) => {
     evt.preventDefault()
     const { email, code } = this.state
+
+    console.log("this.state before confirm AWS Sign Up ", this.state)
 
     const confirmAWSResult = await confirmAWSSignUp(email, code)
 
@@ -95,6 +113,7 @@ class Confirm extends Component<Props, State> {
 
   render() {
     const { email, code, statusMessage } = this.state
+    console.log("this.state inside Confirm ", this.state)
 
     return (
       <form onSubmit={this.handleConfirmation}>

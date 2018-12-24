@@ -22,7 +22,17 @@ type State = {
   initSignUpSuccess: boolean,
 }
 
-class Signup extends Component<{}, State> {
+type History = {
+  push: (pathObject: { pathname: string, state: { email: string } }) => void,
+}
+
+type Props = {
+  history: History,
+  location: {},
+  match: {},
+}
+
+class Signup extends Component<Props, State> {
   state = {
     ...defaultState,
     statusMessage: "",
@@ -77,7 +87,8 @@ class Signup extends Component<{}, State> {
         const { message } = AWSSignUpResponse
         this.setState({ ...defaultState, statusMessage: message })
       } else {
-        const newState = { ...defaultState, ...{ password } }
+        // Save email and password to pass to <Confirm />
+        const newState = { ...defaultState, ...{ email, password } }
 
         this.setState({
           initSignUpSuccess: true,
@@ -101,7 +112,8 @@ class Signup extends Component<{}, State> {
     } = this.state
 
     if (initSignUpSuccess === true) {
-      return <Confirm {...this.props} password={password} />
+      // Pass email/password to <Confirm /> to avoid asking User to reenter info
+      return <Confirm {...this.props} email={email} password={password} />
     }
 
     return (

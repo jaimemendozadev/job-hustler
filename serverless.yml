@@ -29,7 +29,12 @@ functions:
       - http:
           path: /user
           method: GET
-          cors: true
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - Access-Control-Allow-Origin
+              - Authorization
           authorizer:
             arn: ${ssm:/jobhustler/cognito-arn~true}
 
@@ -39,7 +44,11 @@ functions:
       - http:
           path: /enroll
           method: GET
-          cors: true
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - Access-Control-Allow-Origin
+              - Authorization
           authorizer:
             arn: ${ssm:/jobhustler/cognito-arn~true}
-

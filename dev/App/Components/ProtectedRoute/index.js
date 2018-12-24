@@ -13,9 +13,16 @@ const defaultState = {
   redirectTo: "",
 }
 
+type Location = {
+  state: {
+    email: string,
+  },
+}
+
 type Props = {
   component: () => any,
   path: string,
+  location: Location,
 }
 
 type State = {
@@ -28,7 +35,10 @@ type State = {
 class ProtectedRoute extends Component<Props, State> {
   state = defaultState
 
-  componentDidUpdate = async (_prevProps, prevState) => {
+  componentDidUpdate = async (
+    _prevProps: {},
+    prevState: { authFail: boolean },
+  ) => {
     const { authFail } = this.state
 
     if (prevState.authFail !== authFail) {
@@ -70,19 +80,22 @@ class ProtectedRoute extends Component<Props, State> {
     const { component: RenderComponent, ...rest } = this.props
     const { isAuthenticated, authFail, statusMessage, redirectTo } = this.state
 
-    if (redirectTo.length) {
-      return <Redirect to={redirectTo} />
-    }
-
+    // First, try Authenticating user in CDM
     if (isAuthenticated === false && !authFail) {
       return <StatusMessage statusMessage="Authenticating..." />
     }
 
+    // If Auth fails, display message and set redirect state in CDU
     if (authFail === true && statusMessage) {
       return <StatusMessage statusMessage={statusMessage} />
     }
 
-    return <Route {...rest} render={props => <RenderComponent {...props} />} />
+    // Render component or redirect based on auth success or failure
+    return redirectTo.length > 0 ? (
+      <Redirect to={redirectTo} />
+    ) : (
+      <Route {...rest} render={props => <RenderComponent {...props} />} />
+    )
   }
 }
 
