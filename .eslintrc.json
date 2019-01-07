@@ -8,9 +8,10 @@
     "plugins": ["flowtype"],
     "rules": {
       "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+      "react/jsx-one-expression-per-line": [0],
       "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
       "import/no-unresolved": [1],
       "prefer-destructuring": [1],
       "react/destructuring-assignment": [1]
     }
-}
+} 

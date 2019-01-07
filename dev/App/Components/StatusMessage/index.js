@@ -6,9 +6,9 @@ type Props = {
 }
 
 const StatusMessage = (props: Props) => (
-  <div data-testid="status-msg">
+  <h2 data-testid="status-msg">
     {props.statusMessage.length ? `${props.statusMessage}` : null}
-  </div>
+  </h2>
 )
 
 export default StatusMessage
