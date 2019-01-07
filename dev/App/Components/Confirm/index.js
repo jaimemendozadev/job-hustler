@@ -10,6 +10,7 @@ const defaultState = {
   password: "",
   successConfirm: false,
   statusMessage: "",
+  redirectPath: "/search",
 }
 
 type History = {
@@ -22,6 +23,7 @@ type Props = {
   history: History,
   location: {},
   match: {},
+  redirectPath: string,
 }
 
 type State = {
@@ -30,12 +32,17 @@ type State = {
   successConfirm: boolean,
   statusMessage: string,
   password: string,
+  redirectPath: string,
 }
 
 class Confirm extends Component<Props, State> {
   state = {
     ...defaultState,
-    ...{ email: this.props.email, password: this.props.password },
+    ...{
+      email: this.props.email,
+      password: this.props.password,
+      redirectPath: this.props.redirectPath,
+    },
   }
 
   handleOnBlur = (labelType: string) => {
@@ -70,7 +77,7 @@ class Confirm extends Component<Props, State> {
 
   handleRedirect = async () => {
     const { history } = this.props
-    const { email, password } = this.state
+    const { email, password, redirectPath } = this.state
 
     console.log("this.state inside handleRedirect ", this.state)
     console.log("this.props inside handleRedirect ", this.props)
@@ -80,7 +87,7 @@ class Confirm extends Component<Props, State> {
 
     // Redirect User to /search
     const pathToSearch = {
-      pathname: "/search",
+      pathname: redirectPath,
       state: { email },
     }
 

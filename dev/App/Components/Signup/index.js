@@ -113,7 +113,14 @@ class Signup extends Component<Props, State> {
 
     if (initSignUpSuccess === true) {
       // Pass email/password to <Confirm /> to avoid asking User to reenter info
-      return <Confirm {...this.props} email={email} password={password} />
+      return (
+        <Confirm
+          {...this.props}
+          email={email}
+          password={password}
+          redirectPath="/enroll"
+        />
+      )
     }
 
     return (
