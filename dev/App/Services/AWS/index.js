@@ -136,6 +136,28 @@ const getCurrentAWSSession = async (): Promise<any> => {
   }
 }
 
-export { signUpAWS, confirmAWSSignUp, loginToApp, getCurrentAWSSession }
+const getCurrentAWSUser = async (): Promise<any> => {
+  try {
+    const currentUser = await Auth.currentAuthenticatedUser()
+
+    console.log("currentUser from AWS is ", currentUser)
+
+    return currentUser
+  } catch (error) {
+    console.log("Error getting Current User from AWS ", error)
+
+    const { message } = error
+
+    return createErrorObject(message)
+  }
+}
+
+export {
+  signUpAWS,
+  confirmAWSSignUp,
+  loginToApp,
+  getCurrentAWSSession,
+  getCurrentAWSUser,
+}
 
 export default config
