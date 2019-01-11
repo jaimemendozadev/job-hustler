@@ -2,9 +2,10 @@
 import React, { Component } from "react"
 import { signUpAWS } from "../../Services/AWS"
 import Input from "../Input"
-import Confirm from "../Confirm"
 import StatusMessage from "../StatusMessage"
 import { checkPassInput, checkForValidInputs } from "./utils"
+
+const Confirm = () => import("../Confirm")
 
 const defaultState = {
   email: "Email",
@@ -90,10 +91,13 @@ class Signup extends Component<Props, State> {
         // Save email and password to pass to <Confirm />
         const newState = { ...defaultState, ...{ email, password } }
 
+        const ConfirmResult = await Confirm()
+
         this.setState({
           initSignUpSuccess: true,
           statusMessage: "",
           ...newState,
+          module: ConfirmResult.default,
         })
       }
     } else {
@@ -109,12 +113,13 @@ class Signup extends Component<Props, State> {
       lastName,
       statusMessage,
       initSignUpSuccess,
+      module: Module,
     } = this.state
 
     if (initSignUpSuccess === true) {
       // Pass email/password to <Confirm /> to avoid asking User to reenter info
       return (
-        <Confirm
+        <Module
           {...this.props}
           email={email}
           password={password}
