@@ -14,6 +14,7 @@ module.exports = ({ mode } = { mode: "production" }) =>
     {
       entry,
       mode,
+      devtool: "source-map",
       output: {
         path: publicFolder,
         filename: "bundle.js",

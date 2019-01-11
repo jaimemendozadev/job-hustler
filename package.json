@@ -9,7 +9,7 @@
     "sls:deploy": "sls deploy --aws-profile jobhustler",
     "dev:start": "sls offline start",
     "sls:remove": "sls remove --aws-profile jobhustler",
-    "fe:devstart": "webpack-dev-server --config ./webpack.config.js --env.mode development --env.presets ",
+    "fe:devstart": "webpack-dev-server --config ./webpack.config.js --env.mode production --env.presets ",
     "lint:fe": "eslint --fix ./dev",
     "lint:be": "eslint --fix ./api",
     "prettier": "prettier \"**/*.+(js|jsx|json|yml|yaml|css|scss|md)\"",
@@ -36,6 +36,7 @@
   "devDependencies": {
     "@babel/core": "^7.1.6",
     "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/plugin-transform-runtime": "^7.1.0",
     "@babel/preset-env": "^7.1.6",
     "@babel/preset-flow": "^7.0.0",
