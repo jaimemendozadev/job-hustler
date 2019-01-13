@@ -129,7 +129,7 @@ class Signup extends Component<Props, State> {
     }
 
     return (
-      <form onSubmit={this.handleSignUp}>
+      <form className="signup-form" onSubmit={this.handleSignUp}>
         <h1>Signup</h1>
         <Input
           htmlFor="email"
@@ -175,7 +175,10 @@ class Signup extends Component<Props, State> {
           value={lastName}
         />
 
-        <button type="submit">Sign Up</button>
+        <div className="signup-btn-container">
+          <button type="submit">Sign Up</button>
+        </div>
+
         <StatusMessage statusMessage={statusMessage} />
       </form>
     )
