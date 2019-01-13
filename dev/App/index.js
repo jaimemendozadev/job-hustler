@@ -1,5 +1,3 @@
-/* eslint no-unused-vars: 0 */
-
 import React from "react"
 import Amplify from "aws-amplify"
 import { BrowserRouter, Route, Switch } from "react-router-dom"
@@ -9,7 +7,6 @@ import Login from "./Components/Login"
 import Enroll from "./Components/Enroll"
 import EmailFinder from "./Components/EmailFinder"
 import config from "./Services/AWS"
-import styles from "./Sass/index.scss"
 
 Amplify.configure(config)
 
