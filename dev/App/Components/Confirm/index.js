@@ -85,7 +85,7 @@ class Confirm extends Component<Props, State> {
     // Login to App
     await loginToApp(email, password)
 
-    // Redirect User to /search
+    // Redirect User to /enroll
     const pathToSearch = {
       pathname: redirectPath,
       state: { email },

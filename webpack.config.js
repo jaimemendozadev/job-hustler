@@ -4,6 +4,7 @@ const webpack = require("webpack")
 const { HotModuleReplacementPlugin } = webpack
 const Dotenv = require("dotenv-webpack")
 const webpackMerge = require("webpack-merge")
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 
 const publicFolder = path.resolve(__dirname, "public")
 const entry = path.resolve(__dirname, "dev/index.js")
@@ -26,9 +27,23 @@ module.exports = ({ mode } = { mode: "production" }) =>
       module: {
         rules: [
           { test: /\.(js|jsx)$/, exclude: /node_modules/, use: "babel-loader" },
+          {
+            test: /\.scss$/,
+            use: [
+              mode === "development"
+                ? "style-loader"
+                : MiniCssExtractPlugin.loader,
+              "css-loader",
+              "sass-loader",
+            ],
+          },
         ],
       },
-      plugins: [new Dotenv(), new HotModuleReplacementPlugin()],
+      plugins: [
+        new Dotenv(),
+        new HotModuleReplacementPlugin(),
+        new MiniCssExtractPlugin(),
+      ],
     },
     presets(),
   )
