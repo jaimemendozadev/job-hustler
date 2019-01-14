@@ -2,6 +2,7 @@
 // @flow
 import React, { Component } from "react"
 import StatusMessage from "../StatusMessage"
+import FlipCard from "./FlipCard"
 import { getCurrentAWSUser } from "../../Services/AWS"
 
 const defaultState = {
@@ -62,14 +63,7 @@ class Enroll extends Component<{}, State> {
 
         <div>
           <h2>Available Subscription Plans</h2>
-          <div className="scene">
-            <div className="subscribe-card-container">
-              <div className="subscribe-card front">
-                Annual Subscription Plan
-              </div>
-              <div className="subscribe-card back">Cost: $180</div>
-            </div>
-          </div>
+          <FlipCard />
         </div>
       </div>
     )
