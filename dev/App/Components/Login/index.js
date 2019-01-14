@@ -59,7 +59,7 @@ class Login extends Component<{}, State> {
     const { email, password } = this.state
 
     return (
-      <form onSubmit={this.handleLogin}>
+      <form className="form" onSubmit={this.handleLogin}>
         <h1>Login</h1>
         <Input
           htmlFor="email"
@@ -82,8 +82,9 @@ class Login extends Component<{}, State> {
           id="password"
           value={password}
         />
-
-        <button type="submit">Login</button>
+        <div className="form-btn-container">
+          <button type="submit">Login</button>
+        </div>
       </form>
     )
   }

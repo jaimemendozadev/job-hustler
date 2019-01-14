@@ -123,7 +123,7 @@ class Confirm extends Component<Props, State> {
     console.log("this.state inside Confirm ", this.state)
 
     return (
-      <form onSubmit={this.handleConfirmation}>
+      <form className="form" onSubmit={this.handleConfirmation}>
         <h1 data-testid="success-signup-msg">
           One Final Step: Enter Your Job Hustler Validation Code!
         </h1>
@@ -148,7 +148,11 @@ class Confirm extends Component<Props, State> {
           id="code"
           value={code}
         />
-        <button type="submit">Confirm</button>
+
+        <div className="form-btn-container">
+          <button type="submit">Confirm</button>
+        </div>
+
         <StatusMessage statusMessage={statusMessage} />
       </form>
     )
