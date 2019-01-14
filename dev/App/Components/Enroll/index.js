@@ -59,6 +59,18 @@ class Enroll extends Component<{}, State> {
       <div>
         <h1>Welcome to Job Hunter {given_name}</h1>
         <h3>Please pay for your subscription to start job hunting!</h3>
+
+        <div>
+          <h2>Available Subscription Plans</h2>
+          <div className="scene">
+            <div className="subscribe-card-container">
+              <div className="subscribe-card front">
+                Annual Subscription Plan
+              </div>
+              <div className="subscribe-card back">Cost: $180</div>
+            </div>
+          </div>
+        </div>
       </div>
     )
   }
