@@ -88,7 +88,6 @@ class Confirm extends Component<Props, State> {
     // Redirect User to /enroll
     const pathToSearch = {
       pathname: redirectPath,
-      state: { email },
     }
 
     history.push(pathToSearch)

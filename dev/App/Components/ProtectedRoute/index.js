@@ -13,16 +13,9 @@ const defaultState = {
   redirectTo: "",
 }
 
-type Location = {
-  state: {
-    email: string,
-  },
-}
-
 type Props = {
   component: () => any,
   path: string,
-  location: Location,
 }
 
 type State = {
@@ -51,10 +44,6 @@ class ProtectedRoute extends Component<Props, State> {
   }
 
   componentDidMount = async () => {
-    const {
-      location: { state },
-    } = this.props
-
     const AWSSessionPayload = await getCurrentAWSSession()
 
     if (AWSSessionPayload.error === true) {
@@ -68,7 +57,7 @@ class ProtectedRoute extends Component<Props, State> {
     } else {
       const { email, email_verified } = AWSSessionPayload
 
-      if (state.email === email && email_verified === true) {
+      if (email && email_verified === true) {
         this.setState({
           isAuthenticated: true,
         })
