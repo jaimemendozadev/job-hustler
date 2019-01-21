@@ -175,7 +175,7 @@ class Signup extends Component<Props, State> {
           value={lastName}
         />
 
-        <div className="form-btn-container">
+        <div className="btn-container">
           <button type="submit">Sign Up</button>
         </div>
 

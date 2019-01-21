@@ -152,12 +152,29 @@ const getCurrentAWSUser = async (): Promise<any> => {
   }
 }
 
+const appSignOut = async (): Promise<any> => {
+  try {
+    const signOutResult = await Auth.signOut({ global: true })
+
+    console.log("signOutResult is ", signOutResult)
+
+    return signOutResult
+  } catch (error) {
+    console.log("Error Signing Out Current User from AWS ", error)
+
+    const { message } = error
+
+    return createErrorObject(message)
+  }
+}
+
 export {
   signUpAWS,
   confirmAWSSignUp,
   loginToApp,
   getCurrentAWSSession,
   getCurrentAWSUser,
+  appSignOut,
 }
 
 export default config

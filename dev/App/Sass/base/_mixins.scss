@@ -1,0 +1,11 @@
+@mixin buttonStyling {
+  font-family: inherit;
+  background-color: #4e9dfc;
+  width: 150px;
+  height: 60px;
+  font-size: 1.5em;
+  border-radius: 50px;
+  color: white;
+  margin-bottom: 1em;
+  border: 1px solid grey;
+}
